@@ -1,9 +1,16 @@
 package co.com.indibyte.truelink;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 
@@ -12,6 +19,7 @@ import com.parse.ParseImageView;
  */
 public class TarjetaActivity extends Activity {
 
+    private boolean tarjetaesmia = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -23,24 +31,26 @@ public class TarjetaActivity extends Activity {
         TextView correo = (TextView)findViewById(R.id.tv_correo);
         TextView direccion = (TextView)findViewById(R.id.tv_direccion);
         TextView telefono = (TextView)findViewById(R.id.tv_telefono);
-        //TextView tweet = (TextView)findViewById(R.id.tv_tweet);
+        TextView tweet = (TextView)findViewById(R.id.tv_twit);
         TextView ciudad = (TextView)findViewById(R.id.tv_ciudad);
         TextView cargo = (TextView)findViewById(R.id.tv_cargo);
         ParseImageView foto = (ParseImageView) findViewById(R.id.iv_foto);
-        ParseImageView logo = (ParseImageView) findViewById(R.id.iv_logo);
+        ImageView logo = (ImageView) findViewById(R.id.iv_logo);
 
         Bundle bundle = getIntent().getExtras();
         ParseFile fotoPerfil = new ParseFile(bundle.getByteArray("Foto"));
-        ParseFile fotoLogo = new ParseFile(bundle.getByteArray("LogoEmpresa"));
 
         if (fotoPerfil != null) {
             foto.setParseFile(fotoPerfil);
             foto.loadInBackground();
         }
-        if (fotoLogo != null) {
-            logo.setParseFile(fotoLogo);
-            logo.loadInBackground();
-        }
+
+        byte[] bitmapdata = bundle.getByteArray("LogoEmpresa");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+        logo.setImageBitmap(bitmap);
+
+
+
         nombre.setText(bundle.getString("Nombre"));
         empresa.setText(bundle.getString("Empresa"));
         correo.setText(bundle.getString("Email"));
@@ -48,10 +58,33 @@ public class TarjetaActivity extends Activity {
         telefono.setText(bundle.getString("Telefono"));
         ciudad.setText(bundle.getString("Cidudad"));
         cargo.setText(bundle.getString("Cargo"));
+        tweet.setText(bundle.getString("Twit"));
 
+        final Button btn = (Button) findViewById(R.id.btn_mas);
+        btn.setTextColor(Color.RED);
+        btn.setText("Eliminar");
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tarjetaesmia) {
 
+                    Button button = (Button) v;
+                    button.setTextColor(Color.GREEN);
+                    button.setText("Agregar");
+                    tarjetaesmia=false;
+                }else{
+                if (tarjetaesmia==false){
+
+                    Button button = (Button) v;
+                    button.setTextColor(Color.RED);
+                    button.setText("Eliminar");
+                    tarjetaesmia=true;
+                }}
+            }
+        });
 
     }
+
 
 
 
