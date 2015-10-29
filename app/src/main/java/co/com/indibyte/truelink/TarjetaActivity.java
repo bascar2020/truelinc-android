@@ -5,10 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -36,6 +39,7 @@ public class TarjetaActivity extends Activity {
         TextView cargo = (TextView)findViewById(R.id.tv_cargo);
         ParseImageView foto = (ParseImageView) findViewById(R.id.iv_foto);
         ImageView logo = (ImageView) findViewById(R.id.iv_logo);
+        ImageView qr = (ImageView) findViewById(R.id.iv_qr);
 
         Bundle bundle = getIntent().getExtras();
         ParseFile fotoPerfil = new ParseFile(bundle.getByteArray("Foto"));
@@ -80,6 +84,20 @@ public class TarjetaActivity extends Activity {
                     button.setText("Eliminar");
                     tarjetaesmia=true;
                 }}
+            }
+        });
+
+        qr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = getLayoutInflater();
+                View view = inflater.inflate(R.layout.popup,
+                        (ViewGroup) findViewById(R.id.pop));
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(view);
+                toast.show();
             }
         });
 

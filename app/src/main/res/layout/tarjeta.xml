@@ -23,16 +23,18 @@
             android:layout_height="44dp"
             android:text="Nombre"
             android:textColor="#ffffff"
-            android:background="#65676d70"
+            android:background="#c8676d70"
             android:textStyle="bold"
             android:textSize="24dp"
             android:id="@+id/tv_nombre"
             android:digits="50"
+
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:gravity="center" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="100dp"
@@ -119,7 +121,8 @@
                         android:textSize="16dp"
                         android:id="@+id/tv_telefono"
                         android:layout_weight="0.23"
-                        android:layout_marginTop="12dp" />
+                        android:layout_marginTop="12dp"
+                        android:autoLink="phone" />
 
                     <TextView
                         android:layout_width="135dp"
@@ -171,7 +174,8 @@
                         android:text="New Text"
                         android:textSize="16dp"
                         android:id="@+id/tv_correo"
-                        android:layout_marginTop="12dp" />
+                        android:layout_marginTop="12dp"
+                        android:autoLink="email" />
 
                     <TextView
                         android:layout_width="135dp"
@@ -212,6 +216,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="1dp"
                     android:digits="140"
+                    android:textSize="12dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginBottom="2dp" />
             </LinearLayout>

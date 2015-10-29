@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/pop">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:background="#56302f2f"
-        android:layout_height="match_parent"
+        android:background="#86302f2f"
+        android:layout_height="500dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp">
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:id="@+id/iv_qr"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
             android:background="#fff" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="14dp">
+            android:layout_marginTop="14dp"
+            android:background="#ffffff">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:id="@+id/imageView2"
                 android:src="@drawable/logolargo"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:layout_marginBottom="4dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

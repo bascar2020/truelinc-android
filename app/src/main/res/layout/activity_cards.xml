@@ -20,19 +20,34 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <EditText android:id="@+id/inputSearch"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:hint="Search products.."
-    android:inputType="textVisiblePassword"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <EditText android:id="@+id/inputSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Buscar Tarjetas.."
+            android:textColor="#067999"
+        android:inputType="textVisiblePassword"
+            android:layout_weight="1.01" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@mipmap/ic_lupa" />
+    </LinearLayout>
 
 
-<ListView
+    <ListView
     android:id="@+id/activity_googlecards_listview"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="567dp"
     android:background="#e2e2e2"
     android:clipToPadding="false"
     android:divider="@null"
@@ -43,4 +58,4 @@
     tools:ignore="overdraw"
     android:padding="4dp" />
 
-    </LinearLayout>
+</LinearLayout>

@@ -126,6 +126,8 @@ public class CardsActivity extends Activity {
                         //Close Dialog
                         mProgressDialog.dismiss();
                     }
+                    //Close Dialog
+                    mProgressDialog.dismiss();
 
 
                 }
