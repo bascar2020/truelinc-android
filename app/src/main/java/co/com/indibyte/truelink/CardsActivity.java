@@ -196,7 +196,8 @@ public class CardsActivity extends Activity {
             // action with ID action_settings was selected
             case R.id.action_settings:
                 ParseUser.getCurrentUser().logOut();
-                startActivity(new Intent(CardsActivity.this, MainActivity.class));
+                startActivity(new Intent(CardsActivity.this, SignUpOrLoginActivity.class));
+                finish();
                 break;
             default:
                 break;
@@ -214,8 +215,11 @@ public class CardsActivity extends Activity {
         }
     }
 
-
-
-
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }
