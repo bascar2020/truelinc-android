@@ -130,12 +130,15 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
 
         byte[] bitmapdata = new byte[0];
         try {
-            bitmapdata = filteredData.get(position).getLogo().getData();
+            if (filteredData.get(position).getLogo()!=null) {
+                bitmapdata = filteredData.get(position).getLogo().getData();
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+                holder.logo.setImageBitmap(bitmap);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
-        holder.logo.setImageBitmap(bitmap);
+
 
         holder.empresa.setText(filteredData.get(position).getEmpresa());
         holder.nombre.setText(filteredData.get(position).getNombre());
@@ -148,21 +151,22 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
             public void onClick(View arg0) {
 
                 Bundle bundle = new Bundle();
-                bundle.putString("Nombre", filteredData.get(position).getNombre());
-                bundle.putString("Empresa", filteredData.get(position).getEmpresa());
-                bundle.putString("Cargo", filteredData.get(position).getCargo());
-                bundle.putString("Direccion", filteredData.get(position).getDireccion());
-                bundle.putString("Telefono", filteredData.get(position).getTelefono());
-                bundle.putString("Email", filteredData.get(position).getEmail());
-                bundle.putString("Ciudad", filteredData.get(position).getCiudad());
-                bundle.putString("Twit", filteredData.get(position).getTwit());
+                if (filteredData.get(position).getNombre()==null){bundle.putString("Nombre", "");}else{bundle.putString("Nombre", filteredData.get(position).getNombre());}
+                if (filteredData.get(position).getEmpresa()==null){bundle.putString("Empresa", "");}else{bundle.putString("Empresa", filteredData.get(position).getEmpresa());}
+                if (filteredData.get(position).getCargo()==null){bundle.putString("Cargo", "");}else{bundle.putString("Cargo", filteredData.get(position).getCargo());}
+                if (filteredData.get(position).getDireccion()==null){bundle.putString("Direccion", "");}else{bundle.putString("Direccion", filteredData.get(position).getDireccion());}
+                if (filteredData.get(position).getTelefono()==null){bundle.putString("Telefono", "");}else{bundle.putString("Telefono", filteredData.get(position).getTelefono());}
+                if (filteredData.get(position).getEmail()==null){bundle.putString("Email", "");}else{bundle.putString("Email", filteredData.get(position).getEmail());}
+                if (filteredData.get(position).getCiudad()==null){bundle.putString("Ciudad", "");}else{bundle.putString("Ciudad", filteredData.get(position).getCiudad());}
+                if (filteredData.get(position).getTwit()==null){bundle.putString("Twit", "");}else{bundle.putString("Twit", filteredData.get(position).getTwit());}
+
                 try {
-                    bundle.putByteArray("Foto", filteredData.get(position).getFoto().getData());
-                    bundle.putByteArray("LogoEmpresa", filteredData.get(position).getLogo().getData());
-
-
+                    if (filteredData.get(position).getFoto() == null){bundle.putByteArray("Foto",null);}else{bundle.putByteArray("Foto", filteredData.get(position).getFoto().getData());}
+                    if (filteredData.get(position).getLogo()==null){bundle.putByteArray("LogoEmpresa",null);}else{bundle.putByteArray("LogoEmpresa", filteredData.get(position).getLogo().getData());}
+                    if (filteredData.get(position).getQr()==null){bundle.putByteArray("Qr",null);}else{bundle.putByteArray("Qr", filteredData.get(position).getQr().getData());}
                 } catch (com.parse.ParseException e) {
                     e.printStackTrace();
+                    Log.d("Error",e.getMessage());
                 }
                 // Send single item click data to SingleItemView Class
 

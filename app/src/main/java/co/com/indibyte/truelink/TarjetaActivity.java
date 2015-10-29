@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 
@@ -23,6 +22,7 @@ import com.parse.ParseImageView;
 public class TarjetaActivity extends Activity {
 
     private boolean tarjetaesmia = true;
+    private Bitmap bitmapLogo = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,17 +41,26 @@ public class TarjetaActivity extends Activity {
         ImageView logo = (ImageView) findViewById(R.id.iv_logo);
         ImageView qr = (ImageView) findViewById(R.id.iv_qr);
 
-        Bundle bundle = getIntent().getExtras();
-        ParseFile fotoPerfil = new ParseFile(bundle.getByteArray("Foto"));
 
-        if (fotoPerfil != null) {
-            foto.setParseFile(fotoPerfil);
-            foto.loadInBackground();
+        final Bundle bundle = getIntent().getExtras();
+        if (bundle.get("Foto")!=null){
+            ParseFile fotoPerfil = new ParseFile(bundle.getByteArray("Foto"));
+            if (fotoPerfil != null) {
+                foto.setParseFile(fotoPerfil);
+                foto.loadInBackground();
+            }
         }
 
-        byte[] bitmapdata = bundle.getByteArray("LogoEmpresa");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
-        logo.setImageBitmap(bitmap);
+        if (bundle.get("LogoEmpresa")!=null){
+            byte[] bitmapdata = bundle.getByteArray("LogoEmpresa");
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+            logo.setImageBitmap(bitmap);
+        }
+        if (bundle.get("LogoEmpresa")!=null){
+            byte[] bitmapQr = bundle.getByteArray("Qr");
+            bitmapLogo = BitmapFactory.decodeByteArray(bitmapQr, 0, bitmapQr.length);
+            qr.setImageBitmap(bitmapLogo);
+        }
 
 
 
@@ -93,6 +102,10 @@ public class TarjetaActivity extends Activity {
                 LayoutInflater inflater = getLayoutInflater();
                 View view = inflater.inflate(R.layout.popup,
                         (ViewGroup) findViewById(R.id.pop));
+                ImageView qr1= (ImageView) view.findViewById(R.id.iv_qr1);
+                if (bitmapLogo!=null){
+                    qr1.setImageBitmap(bitmapLogo);
+                }
 
                 Toast toast = new Toast(getApplicationContext());
                 toast.setDuration(Toast.LENGTH_LONG);
