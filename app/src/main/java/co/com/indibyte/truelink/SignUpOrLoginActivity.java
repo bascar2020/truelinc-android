@@ -34,6 +34,5 @@ public class SignUpOrLoginActivity extends Activity {
                 startActivity(new Intent(SignUpOrLoginActivity.this, SignUpActivity.class));
             }
         });
-
     }
 }

@@ -18,7 +18,7 @@ public class StartPARSE extends Application {
             super.onCreate();
 
             // Enable Local Datastore.
-            //Parse.enableLocalDatastore(this);
+            Parse.enableLocalDatastore(getApplicationContext());
             ParseObject.registerSubclass(Tarjetas.class);
             // Add your initialization code here
             Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_id));

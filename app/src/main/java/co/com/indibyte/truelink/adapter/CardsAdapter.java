@@ -158,7 +158,7 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
                 bundle.putString("Twit", filteredData.get(position).getTwit());
                 try {
                     bundle.putByteArray("Foto", filteredData.get(position).getFoto().getData());
-                    bundle.putByteArray("LogoEmpresa", filteredData.get(position).getLogo().getData());
+                    bundle.putByteArray("to", filteredData.get(position).getLogo().getData());
 
 
                 } catch (com.parse.ParseException e) {

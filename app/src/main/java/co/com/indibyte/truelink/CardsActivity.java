@@ -98,11 +98,14 @@ public class CardsActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
 
-//            tarjetasUser = new ArrayList<Tarjetas>();
-//                ParseQuery query = new ParseQuery("Tarjetas");
-//                ob = query.find();
+
 
             ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
+
+
+
+
+
             woodwinds.findInBackground(new FindCallback<Tarjetas>() {
                 public void done(List<Tarjetas> tarjetas, ParseException exception) {
                     if (tarjetas == null) {
@@ -120,6 +123,8 @@ public class CardsActivity extends Activity {
 
                         listView.setAdapter(swingBottomInAnimationAdapter);
 
+                        //Close Dialog
+                        mProgressDialog.dismiss();
                     }
 
 
@@ -153,8 +158,7 @@ public class CardsActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             //super.onPostExecute(aVoid);
 
-            //Close Dialog
-            mProgressDialog.dismiss();
+
 
 
         }
