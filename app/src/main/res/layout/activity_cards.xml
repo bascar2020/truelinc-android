@@ -33,11 +33,18 @@
             android:textColor="#067999"
             android:cursorVisible="false"
             android:ems="10"
-            android:drawableBottom="@android:color/transparent"
             android:singleLine="true"
             android:inputType="textNoSuggestions"
 
-            android:layout_weight="1.01" />
+            android:layout_weight="1.01"
+            android:backgroundTint="#fff"
+            android:backgroundTintMode="multiply" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_borrar"
+            android:src="@mipmap/ic_navigation_close" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -52,7 +59,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="567dp"
+    android:layout_height="match_parent"
     android:background="#e2e2e2"
     android:clipToPadding="false"
     android:divider="@null"

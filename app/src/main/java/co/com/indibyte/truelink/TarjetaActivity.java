@@ -69,7 +69,7 @@ public class TarjetaActivity extends Activity {
         correo.setText(bundle.getString("Email"));
         direccion.setText(bundle.getString("Direccion"));
         telefono.setText(bundle.getString("Telefono"));
-        ciudad.setText(bundle.getString("Cidudad"));
+        ciudad.setText(bundle.getString("Ciudad"));
         cargo.setText(bundle.getString("Cargo"));
         tweet.setText(bundle.getString("Twit"));
 
