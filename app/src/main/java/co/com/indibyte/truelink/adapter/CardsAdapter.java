@@ -159,6 +159,8 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
                 if (filteredData.get(position).getEmail()==null){bundle.putString("Email", "");}else{bundle.putString("Email", filteredData.get(position).getEmail());}
                 if (filteredData.get(position).getCiudad()==null){bundle.putString("Ciudad", "");}else{bundle.putString("Ciudad", filteredData.get(position).getCiudad());}
                 if (filteredData.get(position).getTwit()==null){bundle.putString("Twit", "");}else{bundle.putString("Twit", filteredData.get(position).getTwit());}
+                bundle.putString("objecId",filteredData.get(position).getObjectID());
+                bundle.putBoolean("follow",true);// esta variable representa que el usuario sigue esta tarjeta
 
                 try {
                     if (filteredData.get(position).getFoto() == null){bundle.putByteArray("Foto",null);}else{bundle.putByteArray("Foto", filteredData.get(position).getFoto().getData());}
