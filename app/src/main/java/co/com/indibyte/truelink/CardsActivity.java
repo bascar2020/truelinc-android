@@ -10,7 +10,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -53,7 +55,7 @@ public class CardsActivity extends Activity {
 
         new RemoteDataTask().execute();
 
-        EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
+        final EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
         inputSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -73,7 +75,14 @@ public class CardsActivity extends Activity {
             }
         });;
 
+        ImageView btnBorrar = (ImageView) findViewById(R.id.btn_borrar);
+        btnBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                inputSearch.setText("");
+            }
+        });
 
 
 

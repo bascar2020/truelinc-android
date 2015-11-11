@@ -44,7 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_borrar"
-            android:src="@mipmap/ic_navigation_close" />
+            android:src="@mipmap/ic_navigation_close"
+            android:clickable="true"/>
 
         <ImageView
             android:layout_width="wrap_content"
