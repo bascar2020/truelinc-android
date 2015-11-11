@@ -36,8 +36,11 @@ public class CardsActivity extends Activity {
 
     private static final int INITIAL_DELAY_MILLIS = 300;
     private List<Tarjetas> tarjetasUser = null;
+    private static List<String> misTarjetas;
+
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
+
     // Search EditText
 
 
@@ -107,15 +110,18 @@ public class CardsActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
 
+            misTarjetas = ParseUser.getCurrentUser().getList("tarjetas");
+            if(misTarjetas!= null){
+                for (String a:misTarjetas ) {
+                    Log.d("TARJETAS",a);
+                }
+            }
 
-
-            ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
-
-
-
-
-
-            woodwinds.findInBackground(new FindCallback<Tarjetas>() {
+            if (misTarjetas!=null) {
+                ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
+                woodwinds.fromLocalDatastore();
+                woodwinds.whereContainedIn("objectId", misTarjetas);
+                woodwinds.findInBackground(new FindCallback<Tarjetas>() {
                 public void done(List<Tarjetas> tarjetas, ParseException exception) {
                     if (tarjetas == null) {
                         Log.d("query", "request failed.");
@@ -142,24 +148,15 @@ public class CardsActivity extends Activity {
                 }
             });
 
-            // ***********************************if null no diponible INVENTAR ALGO ***********************************
+            }else{
+                // ***********************************if null no diponible INVENTAR ALGO ***********************************
+                //Close Dialog
+                mProgressDialog.dismiss();
+                Log.d("DEBUG","EL USUARIO NO TIENE TARJETAS");
+            }
 
 
-//                for (ParseObject tarjeta : ob){
-//                    Tarjetas tarjetas = new Tarjetas();
-//                    tarjetas.setNombre(tarjeta.getString("Nombre"));
-//                    tarjetas.setCargo(tarjeta.getString("Cargo"));
-//                    tarjetas.setEmpresa(tarjeta.getString("Empresa"));
-//                    tarjetas.setDireccion(tarjeta.getString("Direccion"));
-//                    tarjetas.setTelefono(tarjeta.getString("Telefono"));
-//                    tarjetas.setEmail(tarjeta.getString("Email"));
-//                    tarjetas.setCiudad(tarjeta.getString("Ciudad"));
-//                    tarjetas.setTwit(tarjeta.getString("Twit"));
-//                    tarjetas.setFoto(tarjeta.getParseFile("Foto"));
-//                    tarjetas.setLogo(tarjeta.getParseFile("LogoEmpresa"));
-//
-//                    tarjetasUser.add(tarjetas);
-//                }
+
 
 
             return null;

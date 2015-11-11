@@ -10,7 +10,13 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
+
+import co.com.indibyte.truelink.model.Tarjetas;
 
 
 /**
@@ -72,6 +78,7 @@ public class LoginActivity extends Activity {
                             Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         } else {
                             // Start an intent for the dispatch activity
+                            getTarjetasUser();
                             Intent intent = new Intent(LoginActivity.this, CardsActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
@@ -88,5 +95,32 @@ public class LoginActivity extends Activity {
         } else {
             return true;
         }
+    }
+
+    private void getTarjetasUser(){
+        List<ParseObject> misTarjetas = ParseUser.getCurrentUser().getList("tarjetas");
+
+        ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
+        if (misTarjetas!=null) {
+            woodwinds.whereContainedIn("objectId", misTarjetas);
+
+//            woodwinds.findInBackground(new FindCallback<Tarjetas>() {
+//                @Override
+//                public void done(final List<Tarjetas> list, ParseException e) {
+//                    ParseObject.unpinAllInBackground("tarjetasOffline", new DeleteCallback() {
+//                        @Override
+//                        public void done(ParseException e) {
+//                            ParseObject.pinAllInBackground("tarjetasOffline",list);
+//                        }
+//                    });
+//                }
+//            });
+            try {
+                ParseObject.pinAllInBackground(woodwinds.find());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
