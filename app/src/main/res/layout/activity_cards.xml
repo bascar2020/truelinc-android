@@ -24,21 +24,25 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:background="#fff">
 
         <EditText android:id="@+id/inputSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Buscar Tarjetas"
-            android:textColor="#067999"
+            android:textColor="#14067999"
             android:cursorVisible="false"
             android:ems="10"
-            android:singleLine="true"
+            android:singleLine="false"
             android:inputType="textNoSuggestions"
 
             android:layout_weight="1.01"
             android:backgroundTint="#fff"
-            android:backgroundTintMode="multiply" />
+            android:textColorLink="#fff"
+            android:textColorHighlight="#fff"
+            android:textColorHint="#067999"
+            android:textIsSelectable="false" />
 
         <ImageView
             android:layout_width="wrap_content"

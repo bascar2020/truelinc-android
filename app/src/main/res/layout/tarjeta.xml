@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:id="@+id/iv_foto"
             android:src="@drawable/no_perfil"
-            android:scaleType="fitXY" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:layout_width="match_parent"
