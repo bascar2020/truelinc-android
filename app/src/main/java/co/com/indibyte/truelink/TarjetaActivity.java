@@ -13,16 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.List;
-
-import co.com.indibyte.truelink.model.Tarjetas;
 
 /**
  * Created by CharlieMolina on 22/10/15.
@@ -88,12 +83,10 @@ public class TarjetaActivity extends Activity {
         if (tarjetaesmia) {
             btn.setTextColor(Color.RED);
             btn.setText("Eliminar");
-            tarjetaesmia=false;
         }else{
             if (!tarjetaesmia){
                 btn.setTextColor(Color.GREEN);
                 btn.setText("Agregar");
-                tarjetaesmia=true;
             }}
 
 
@@ -152,18 +145,18 @@ public class TarjetaActivity extends Activity {
         if (misTarjetas.remove(objectId)){
             Log.d("ANTES", "PASE");
             user.put("tarjetas", misTarjetas);
-            user.saveEventually();
-            ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
-            woodwinds.whereContainedIn("objectId", misTarjetas);
-
-                try {
-                    ParseObject.deleteAllInBackground(woodwinds.find());
-                    ParseObject.pinAllInBackground(woodwinds.find());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            user.saveInBackground();
 
 
+//            ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
+//            woodwinds.whereContainedIn("objectId", misTarjetas);
+//
+//                try {
+//                    ParseObject.deleteAllInBackground(woodwinds.find());
+//                    ParseObject.pinAllInBackground(woodwinds.find());
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
 
             Intent intent = new Intent(TarjetaActivity.this, CardsActivity.class);
             startActivity(intent);

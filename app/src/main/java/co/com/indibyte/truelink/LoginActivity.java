@@ -103,19 +103,8 @@ public class LoginActivity extends Activity {
         ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
         if (misTarjetas!=null) {
             woodwinds.whereContainedIn("objectId", misTarjetas);
-
-//            woodwinds.findInBackground(new FindCallback<Tarjetas>() {
-//                @Override
-//                public void done(final List<Tarjetas> list, ParseException e) {
-//                    ParseObject.unpinAllInBackground("tarjetasOffline", new DeleteCallback() {
-//                        @Override
-//                        public void done(ParseException e) {
-//                            ParseObject.pinAllInBackground("tarjetasOffline",list);
-//                        }
-//                    });
-//                }
-//            });
             try {
+
                 ParseObject.pinAllInBackground(woodwinds.find());
             } catch (ParseException e) {
                 e.printStackTrace();

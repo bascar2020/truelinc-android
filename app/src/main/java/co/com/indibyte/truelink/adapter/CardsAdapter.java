@@ -123,9 +123,14 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
         }else {
             holder = (ViewHolder) view.getTag();
         }
+        if (filteredData.get(position).getFoto()!=null){
+            holder.foto.setParseFile(filteredData.get(position).getFoto());
+            holder.foto.loadInBackground();
+        }else{
+            int imageResource = R.drawable.no_perfil;
+            holder.foto.setImageResource(imageResource);
+        }
 
-        holder.foto.setParseFile(filteredData.get(position).getFoto());
-        holder.foto.loadInBackground();
 
 
         byte[] bitmapdata = new byte[0];
@@ -134,6 +139,9 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
                 bitmapdata = filteredData.get(position).getLogo().getData();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
                 holder.logo.setImageBitmap(bitmap);
+            }else{
+                int imageResource = R.drawable.nologo;
+                holder.logo.setImageResource(imageResource);
             }
         } catch (ParseException e) {
             e.printStackTrace();
