@@ -2,9 +2,13 @@ package co.com.indibyte.truelink;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,7 +18,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.parse.FindCallback;
@@ -38,6 +41,7 @@ public class CardsActivity extends Activity {
     private List<Tarjetas> tarjetasUser = null;
     private static List<String> misTarjetas;
 
+
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
 
@@ -48,7 +52,10 @@ public class CardsActivity extends Activity {
  private CardsAdapter mGoogleCardsAdapter;
 
     public CardsActivity() {
+
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +89,6 @@ public class CardsActivity extends Activity {
         btnBorrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 inputSearch.setText("");
             }
         });
@@ -110,6 +116,7 @@ public class CardsActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
 
+
             misTarjetas = ParseUser.getCurrentUser().getList("tarjetas");
             if(misTarjetas!= null){
                 for (String a:misTarjetas ) {
@@ -121,32 +128,33 @@ public class CardsActivity extends Activity {
                 ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
                 woodwinds.fromLocalDatastore();
                 woodwinds.whereContainedIn("objectId", misTarjetas);
+                woodwinds.orderByAscending("Empresa");
                 woodwinds.findInBackground(new FindCallback<Tarjetas>() {
-                public void done(List<Tarjetas> tarjetas, ParseException exception) {
-                    if (tarjetas == null) {
-                        Log.d("query", "request failed.");
-                    } else {
-                        Log.d("query", "Succes!.");
-                        ListView listView = (ListView) findViewById(R.id.activity_googlecards_listview);
+                    public void done(List<Tarjetas> tarjetas, ParseException exception) {
+                        if (tarjetas == null) {
+                            Log.d("query", "request failed.");
+                        } else {
+                            Log.d("query", "Succes!.");
+                            ListView listView = (ListView) findViewById(R.id.activity_googlecards_listview);
+                            tarjetasUser = tarjetas;
+                            mGoogleCardsAdapter = new CardsAdapter(CardsActivity.this, tarjetas);
+                            SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mGoogleCardsAdapter);
+                            swingBottomInAnimationAdapter.setAbsListView(listView);
 
-                        mGoogleCardsAdapter = new CardsAdapter(CardsActivity.this, tarjetas);
-                        SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mGoogleCardsAdapter);
-                        swingBottomInAnimationAdapter.setAbsListView(listView);
+                            assert swingBottomInAnimationAdapter.getViewAnimator() != null;
+                            swingBottomInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
 
-                        assert swingBottomInAnimationAdapter.getViewAnimator() != null;
-                        swingBottomInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
+                            listView.setAdapter(swingBottomInAnimationAdapter);
 
-                        listView.setAdapter(swingBottomInAnimationAdapter);
-
+                            //Close Dialog
+                            mProgressDialog.dismiss();
+                        }
                         //Close Dialog
                         mProgressDialog.dismiss();
+
+
                     }
-                    //Close Dialog
-                    mProgressDialog.dismiss();
-
-
-                }
-            });
+                });
 
             }else{
                 // ***********************************if null no diponible INVENTAR ALGO ***********************************
@@ -154,10 +162,6 @@ public class CardsActivity extends Activity {
                 mProgressDialog.dismiss();
                 Log.d("DEBUG","EL USUARIO NO TIENE TARJETAS");
             }
-
-
-
-
 
             return null;
         }
@@ -216,8 +220,106 @@ public class CardsActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==0 && RESULT_OK==resultCode){
-            Toast.makeText(this, "RESULTADO"+data.getStringExtra("SCAN_RESULT")+" "+data.getStringExtra("SCAN_FORMAT"), Toast.LENGTH_SHORT)
-                    .show();
+
+            if (isNetworkAvailable(CardsActivity.this)) {
+                if (data.getStringExtra("SCAN_RESULT").substring(0, 8).equalsIgnoreCase("truelinc")) {
+                    String[] scan_results = data.getStringExtra("SCAN_RESULT").split(":");
+                    final String idTarjeta = scan_results[1];
+                    Log.d("query", idTarjeta);
+                    final ParseQuery<Tarjetas> query = ParseQuery.getQuery(Tarjetas.class);
+                    query.whereEqualTo("objectId", idTarjeta.trim());
+
+                    query.findInBackground(new FindCallback<Tarjetas>() {
+                        @Override
+                        public void done(List<Tarjetas> objects, ParseException e) {
+                            if (e == null) {
+                                ParseUser user = ParseUser.getCurrentUser();
+                                List<String> misTarjetas = user.getList("tarjetas");
+                                misTarjetas.add(idTarjeta.trim());
+                                user.saveInBackground();
+                                Log.d("query", "DONE.");
+                                if (!objects.isEmpty()) {
+                                    Log.d("query", "pined.");
+                                    for (Tarjetas t:objects) {
+                                        tarjetasUser.add(t);
+                                        t.pinInBackground();
+                                    }
+
+                                    ListView listView = (ListView) findViewById(R.id.activity_googlecards_listview);
+                                    mGoogleCardsAdapter = new CardsAdapter(CardsActivity.this,tarjetasUser);
+                                    SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mGoogleCardsAdapter);
+                                    swingBottomInAnimationAdapter.setAbsListView(listView);
+
+                                    assert swingBottomInAnimationAdapter.getViewAnimator() != null;
+                                    swingBottomInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
+
+                                    listView.setAdapter(swingBottomInAnimationAdapter);
+
+
+
+
+                                } else
+
+                                {
+                                    AlertDialog alertDialog = new AlertDialog.Builder(CardsActivity.this).create();
+                                    alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
+                                    alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBodyError2));
+                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    alertDialog.show();
+                                }
+
+                            } else {
+                                AlertDialog alertDialog = new AlertDialog.Builder(CardsActivity.this).create();
+                                alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
+                                alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBodyError1));
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                alertDialog.show();
+                            }
+                        }
+                    });
+
+
+                } else
+
+                {
+                    AlertDialog alertDialog = new AlertDialog.Builder(CardsActivity.this).create();
+                    alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
+                    alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBodyError1));
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
+            }
+                    else{
+                AlertDialog alertDialog = new AlertDialog.Builder(CardsActivity.this).create();
+                alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
+                alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBody));
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+
+
+
+
         }
     }
 
@@ -227,5 +329,11 @@ public class CardsActivity extends Activity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+
+    public boolean isNetworkAvailable( final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }
