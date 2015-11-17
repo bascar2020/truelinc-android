@@ -39,8 +39,10 @@
             android:layout_weight="1.01"
             android:textColorHint="#067999"
             android:textIsSelectable="false"
+            android:textColor="#067999"
             android:background="#fff"
-            android:backgroundTint="#fff" />
+            android:backgroundTint="#fff"
+            android:textColorLink="#067999" />
 
         <ImageView
             android:layout_width="wrap_content"
