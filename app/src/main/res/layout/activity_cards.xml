@@ -25,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1"
-        android:background="#fff">
+        android:background="#fff"
+        android:layout_marginTop="4dp">
 
         <EditText android:id="@+id/inputSearch"
             android:layout_width="wrap_content"
@@ -42,7 +43,8 @@
             android:textColor="#067999"
             android:background="#fff"
             android:backgroundTint="#fff"
-            android:textColorLink="#067999" />
+            android:textColorLink="#067999"
+            android:layout_marginLeft="8dp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -65,7 +67,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e2e2e2"
+    android:background="#CFD8DC"
     android:clipToPadding="false"
     android:divider="@null"
     android:dividerHeight="8dp"
