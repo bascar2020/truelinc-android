@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:background="#fff"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="8dp">
+
+            <EditText android:id="@+id/inputSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:hint="Buscar Tarjetas"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:singleLine="false"
+                android:inputType="textNoSuggestions"
+
+                android:layout_weight="1.01"
+                android:textColorHint="#067999"
+                android:textIsSelectable="false"
+                android:textColor="#067999"
+                android:background="#fff"
+                android:backgroundTint="#fff"
+                android:textColorLink="#067999"
+                android:layout_marginLeft="10dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_borrar"
+                android:src="@mipmap/ic_navigation_close"
+                android:clickable="true"/>
+
+
+        </LinearLayout>
+
+
+        <ListView
+            android:id="@+id/activity_googlecards_listview"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#CFD8DC"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:dividerHeight="8dp"
+            android:fadingEdge="none"
+            android:fitsSystemWindows="true"
+            android:scrollbarStyle="outsideOverlay"
+            tools:ignore="overdraw"
+            android:padding="4dp" />
+
+    </LinearLayout>
+</LinearLayout>

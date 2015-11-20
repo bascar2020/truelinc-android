@@ -24,27 +24,36 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpOrLoginActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".SignUpOrLoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".SignUpActivity" android:screenOrientation="portrait"/>
 
         <activity
             android:name=".CardsActivity"
             android:windowSoftInputMode="stateHidden"
-            android:theme="@style/ActionBAR" >
+            android:theme="@style/ActionBAR"
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".TarjetaActivity" >
+            android:name=".TarjetaActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".PopUp" >
+            android:name=".PopUp"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".CardsActivityOnline"
+            android:theme="@style/ActionBAR"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity

@@ -92,6 +92,13 @@ public class CardsActivity extends Activity {
                 inputSearch.setText("");
             }
         });
+        ImageView btnBuscar = (ImageView) findViewById(R.id.btn_buscar);
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CardsActivityOnline.class));
+            }
+        });
 
 
 

@@ -8,6 +8,7 @@
     <style name="ActionBAR" parent="Theme.AppCompat.Light">
         <item name="android:windowActionBar">true</item>
         <item name="android:windowNoTitle">false</item>
+        <item name="android:colorBackground">#fff</item>
         <item name="android:icon">@drawable/icon_app</item>
 
     </style>
