@@ -13,11 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import co.com.indibyte.truelink.model.Tarjetas;
 
 /**
  * Created by CharlieMolina on 22/10/15.
@@ -27,6 +33,9 @@ public class TarjetaActivity extends Activity {
     private boolean tarjetaesmia;
     private String objectId;
     private byte[] bitmapQr = null;
+    private List<Tarjetas> tarjetasUser = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -105,6 +114,7 @@ public class TarjetaActivity extends Activity {
                 } else {
                     if (!tarjetaesmia) {
                         // llamar la funcion agregar :Agregar  el objectId al array, subirlo a la base de datos. recargar la base local y devoverse a la anterior ventana
+                        agregarTarjeta();
                         Button button = (Button) v;
                         button.setTextColor(Color.RED);
                         button.setText("Eliminar");
@@ -136,6 +146,49 @@ public class TarjetaActivity extends Activity {
 
             }
         });
+
+    }
+
+    private void agregarTarjeta() {
+        ParseUser user = ParseUser.getCurrentUser();
+
+        List<String> misTarjetas = user.getList("tarjetas");
+        if(misTarjetas==null){misTarjetas= new ArrayList<String>();}
+        misTarjetas.add(objectId.trim());
+        try {
+            user.put("tarjetas",misTarjetas);
+            user.save();
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
+
+
+        final ParseQuery<Tarjetas> query = ParseQuery.getQuery(Tarjetas.class);
+        query.whereEqualTo("objectId", objectId.trim());
+        query.findInBackground(new FindCallback<Tarjetas>() {
+            @Override
+            public void done(List<Tarjetas> objects, ParseException e) {
+                if (!objects.isEmpty()) {
+
+                    for (Tarjetas t : objects) {
+                        Log.d("queryDOS", t.getObjectID());
+                        if (tarjetasUser == null) {
+                            tarjetasUser = new ArrayList<Tarjetas>();
+                        }
+                        tarjetasUser.add(t);
+                        try {
+                            t.pin();
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+
+       startActivity(new Intent(TarjetaActivity.this,CardsActivity.class));
+
+
 
     }
 

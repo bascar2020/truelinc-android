@@ -26,6 +26,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.com.indibyte.truelink.adapter.CardsAdapter;
@@ -235,24 +236,40 @@ public class CardsActivity extends Activity {
                 if (data.getStringExtra("SCAN_RESULT").substring(0, 8).equalsIgnoreCase("truelinc")) {
                     String[] scan_results = data.getStringExtra("SCAN_RESULT").split(":");
                     final String idTarjeta = scan_results[1];
-                    Log.d("query", idTarjeta);
+
+                    //Log.d("query", idTarjeta);
                     final ParseQuery<Tarjetas> query = ParseQuery.getQuery(Tarjetas.class);
                     query.whereEqualTo("objectId", idTarjeta.trim());
+
 
                     query.findInBackground(new FindCallback<Tarjetas>() {
                         @Override
                         public void done(List<Tarjetas> objects, ParseException e) {
                             if (e == null) {
                                 ParseUser user = ParseUser.getCurrentUser();
+
                                 List<String> misTarjetas = user.getList("tarjetas");
+                                if(misTarjetas==null){misTarjetas= new ArrayList<String>();}
                                 misTarjetas.add(idTarjeta.trim());
-                                user.saveInBackground();
+                                try {
+                                    user.put("tarjetas",misTarjetas);
+                                    user.save();
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                }
+
                                 Log.d("query", "DONE.");
                                 if (!objects.isEmpty()) {
-                                    Log.d("query", "pined.");
+
                                     for (Tarjetas t:objects) {
+                                        Log.d("queryDOS", t.getObjectID());
+                                        if(tarjetasUser==null){tarjetasUser = new ArrayList<Tarjetas>();}
                                         tarjetasUser.add(t);
-                                        t.pinInBackground();
+                                        try {
+                                            t.pin();
+                                        } catch (ParseException e1) {
+                                            e1.printStackTrace();
+                                        }
                                     }
 
                                     ListView listView = (ListView) findViewById(R.id.activity_googlecards_listview);
