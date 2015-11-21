@@ -32,6 +32,7 @@ public class TarjetaActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tarjeta);
+        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
 
         TextView nombre = (TextView)findViewById(R.id.tv_nombre);
         TextView empresa = (TextView)findViewById(R.id.tv_empresa);

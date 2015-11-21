@@ -166,7 +166,6 @@
                 android:paddingRight="10dp"
                 android:paddingTop="12dp"
                 android:text="REGISTER"
-                android:textStyle="bold"
                 android:textColor="#067999"
                 android:textSize="14sp"
                 android:background="#c8ffffff" />

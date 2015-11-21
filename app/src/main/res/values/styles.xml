@@ -2,15 +2,26 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:itemBackground">#fff</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="ActionBAR" parent="Theme.AppCompat.Light">
         <item name="android:windowActionBar">true</item>
         <item name="android:windowNoTitle">false</item>
-        <item name="android:colorBackground">#fff</item>
+        <item name="android:itemBackground">#fff</item>
+        <item name="android:actionBarStyle">@style/ActionBarLight</item>
+        <item name="android:popupMenuStyle">@style/ListPopupWindowLight</item>
         <item name="android:icon">@drawable/icon_app</item>
+    </style>
 
+    <style name="ActionBarLight" parent="android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/white</item>
+    </style>
+
+
+    <style name="ListPopupWindowLight" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:background">@color/white</item>
     </style>
 
 

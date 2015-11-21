@@ -16,12 +16,13 @@ public class SignUpOrLoginActivity extends Activity {
         super.onCreate(saveInstaceState);
 
         setContentView(R.layout.signup_or_login);
+        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
 
         // Log in button click handler
         ((Button) findViewById(R.id.btn_login)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Starts an intent of the log in activity
-                Log.d("DEB","entre login");
+                Log.d("DEB", "entre login");
                 startActivity(new Intent(SignUpOrLoginActivity.this, LoginActivity.class));
             }
         });

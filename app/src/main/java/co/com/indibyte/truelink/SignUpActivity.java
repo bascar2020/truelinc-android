@@ -25,6 +25,7 @@ public class SignUpActivity extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_activity);
+        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
 
         usernameView = (EditText) findViewById(R.id.username);
         passwordView = (EditText) findViewById(R.id.password);

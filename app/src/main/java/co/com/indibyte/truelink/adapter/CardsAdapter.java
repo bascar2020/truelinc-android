@@ -114,6 +114,7 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
             view = inflater.inflate(R.layout.list_row, null);
 
 
+
             holder.logo = (ImageView) view.findViewById(R.id.logo);
             holder.foto = (ParseImageView) view.findViewById(R.id.foto);
             holder.empresa = (TextView) view.findViewById(R.id.empresa);

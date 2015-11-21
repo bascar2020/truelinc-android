@@ -17,6 +17,7 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         if (ParseUser.getCurrentUser() != null) {
             // Start an intent for the logged in activity
             startActivity(new Intent(this, CardsActivity.class));

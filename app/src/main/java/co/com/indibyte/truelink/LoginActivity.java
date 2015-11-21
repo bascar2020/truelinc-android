@@ -30,6 +30,7 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
 
         // Set up the login form.
         usernameView = (EditText) findViewById(R.id.username);

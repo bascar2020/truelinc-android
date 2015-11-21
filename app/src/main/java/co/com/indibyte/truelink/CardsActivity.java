@@ -62,6 +62,9 @@ public class CardsActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_cards);
+        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
+
+
 
         new RemoteDataTask().execute();
 

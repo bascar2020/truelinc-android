@@ -19,6 +19,7 @@ public class CardsActivityOnline extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buscador);
+        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
         getActionBar().setDisplayHomeAsUpEnabled(true);
         final EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
 
