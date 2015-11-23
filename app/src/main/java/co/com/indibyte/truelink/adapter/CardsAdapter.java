@@ -149,8 +149,8 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
         }
 
 
-        holder.empresa.setText(filteredData.get(position).getEmpresa());
-        holder.nombre.setText(filteredData.get(position).getNombre());
+        holder.empresa.setText(capitalizeFirstLetter(filteredData.get(position).getEmpresa()));
+        holder.nombre.setText(capitalizeFirstLetter(filteredData.get(position).getNombre()));
 //        Log.d("DEB", tarjetasUser.get(position).getLogo().toString());
 
         // Listen for ListView Item Click
@@ -160,9 +160,9 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
             public void onClick(View arg0) {
 
                 Bundle bundle = new Bundle();
-                if (filteredData.get(position).getNombre()==null){bundle.putString("Nombre", "");}else{bundle.putString("Nombre", filteredData.get(position).getNombre());}
-                if (filteredData.get(position).getEmpresa()==null){bundle.putString("Empresa", "");}else{bundle.putString("Empresa", filteredData.get(position).getEmpresa());}
-                if (filteredData.get(position).getCargo()==null){bundle.putString("Cargo", "");}else{bundle.putString("Cargo", filteredData.get(position).getCargo());}
+                if (filteredData.get(position).getNombre()==null){bundle.putString("Nombre", "");}else{bundle.putString("Nombre", capitalizeFirstLetter(filteredData.get(position).getNombre()));}
+                if (filteredData.get(position).getEmpresa()==null){bundle.putString("Empresa", "");}else{bundle.putString("Empresa", capitalizeFirstLetter(filteredData.get(position).getEmpresa()));}
+                if (filteredData.get(position).getCargo()==null){bundle.putString("Cargo", "");}else{bundle.putString("Cargo", capitalizeFirstLetter(filteredData.get(position).getCargo()));}
                 if (filteredData.get(position).getDireccion()==null){bundle.putString("Direccion", "");}else{bundle.putString("Direccion", filteredData.get(position).getDireccion());}
                 if (filteredData.get(position).getTelefono()==null){bundle.putString("Telefono", "");}else{bundle.putString("Telefono", filteredData.get(position).getTelefono());}
                 if (filteredData.get(position).getEmail()==null){bundle.putString("Email", "");}else{bundle.putString("Email", filteredData.get(position).getEmail());}
@@ -194,68 +194,20 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
 
 
 
+    public String capitalizeFirstLetter(String original) {
+
+        if (original == null || original.length() == 0) {
+            return original;
+        }
 
 
+        String resultado = "";
+        for (String tmp:original.split(" ")) {
+            resultado +=  tmp.substring(0, 1).toUpperCase() + tmp.substring(1) + " ";
+        }
 
+        return resultado.trim();
+    }
 
-
-//    // Customize the layout by overriding getItemView
-//    @Override
-//    public View getItemView(final ParseObject tarjeta, View v, ViewGroup parent) {
-//        if (v == null) {
-//            v = View.inflate(getContext(), R.layout.list_row, null);
-//        }
-//
-//        super.getItemView(tarjeta, v, parent);
-//
-//        // Add and download the image
-//        ParseImageView todoImage = (ParseImageView) v.findViewById(R.id.foto);
-//        ParseFile imageFile = tarjeta.getParseFile("Foto");
-//        if (imageFile != null) {
-//            todoImage.setParseFile(imageFile);
-//            todoImage.loadInBackground();
-//        }
-//
-//        // Add the title view
-//        TextView titleTextView = (TextView) v.findViewById(R.id.nombre);
-//        titleTextView.setText(tarjeta.getString("Nombre"));
-//
-//        // Add a reminder of how long this item has been outstanding
-//        TextView timestampView = (TextView) v.findViewById(R.id.empresa);
-//        timestampView.setText(tarjeta.getString("Empresa")+"-"+tarjeta.getString("Cargo"));
-//
-//        v.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Bundle bundle = new Bundle();
-////                bundle.putString("Nombre",tarjeta.getString("Nombre"));
-////                bundle.putString("Empresa",tarjeta.getString("Empresa"));
-////                bundle.putString("Cargo", tarjeta.getString("Cargo"));
-////                bundle.putString("Direccion", tarjeta.getString("Direccion"));
-////                bundle.putString("Telefono", tarjeta.getString("Telefono"));
-////                bundle.putString("Email", tarjeta.getString("Email"));
-////                bundle.putString("Ciudad", tarjeta.getString("Ciudad"));
-////                try {
-////                    bundle.putByteArray("Foto", tarjeta.getParseFile("Foto").getData());
-////                    bundle.putByteArray("Logo", tarjeta.getParseFile("LogoEmpresa").getData());
-////
-////                } catch (ParseException e) {
-////                    e.printStackTrace();
-////                }
-////
-//                //Intent intent = new Intent();
-////                intent.setClass(,TarjetaActivity.class);
-////                intent.putExtras(bundle);
-////                getContext().startActivity(intent);
-//
-//                getContext().startActivity(new Intent(getContext(), TarjetaActivity.class));
-////                Toast toast = Toast.makeText(getContext(), tarjeta.getString("Nombre"), Toast.LENGTH_SHORT);
-////                	  toast.show();
-//            }
-//        });
-//
-//
-//        return v;
-//    }
 
 }

@@ -58,7 +58,8 @@
                 android:textSize="25sp"
                 android:hint="Username"
                 android:id="@+id/username"
-                android:fontFamily="Arial"/>
+                android:fontFamily="Arial"
+                android:text="e-mail" />
 
             <View
                 android:layout_width="match_parent"
