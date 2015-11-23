@@ -365,3 +365,5 @@ public class CardsActivity extends Activity {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }
+
+
