@@ -40,7 +40,9 @@
                     android:text="Nombre"
                     android:textColor="#067999"
                     android:id="@+id/nombre"
-                    android:layout_marginTop="12dp" />
+                    android:layout_marginTop="12dp"
+                    android:capitalize="sentences"
+                    android:inputType="textCapWords|text" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -49,7 +51,9 @@
                     android:textColor="#2fd4ff"
                     android:text="Empresa"
                     android:id="@+id/empresa"
-                    android:layout_marginTop="4dp" />
+                    android:layout_marginTop="4dp"
+                    android:capitalize="sentences"
+                    android:inputType="textCapWords|text" />
             </LinearLayout>
         </LinearLayout>
 

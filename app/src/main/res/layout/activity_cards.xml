@@ -33,7 +33,6 @@
             android:layout_height="match_parent"
             android:hint="Buscar Tarjetas"
             android:cursorVisible="false"
-            android:ems="10"
             android:singleLine="false"
             android:inputType="textNoSuggestions"
 

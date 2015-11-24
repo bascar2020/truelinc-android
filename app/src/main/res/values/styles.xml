@@ -12,7 +12,7 @@
         <item name="android:itemBackground">#fff</item>
         <item name="android:actionBarStyle">@style/ActionBarLight</item>
         <item name="android:popupMenuStyle">@style/ListPopupWindowLight</item>
-        <item name="android:icon">@drawable/icon_app</item>
+        <item name="android:icon">@mipmap/ic_launcher</item>
     </style>
 
     <style name="ActionBarLight" parent="android:style/Widget.Holo.Light.ActionBar">

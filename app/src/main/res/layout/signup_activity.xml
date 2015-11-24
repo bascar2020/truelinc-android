@@ -56,10 +56,9 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
                 android:textSize="25sp"
-                android:hint="Username"
+                android:hint="e-mail"
                 android:id="@+id/username"
-                android:fontFamily="Arial"
-                android:text="e-mail" />
+                android:fontFamily="Arial" />
 
             <View
                 android:layout_width="match_parent"
