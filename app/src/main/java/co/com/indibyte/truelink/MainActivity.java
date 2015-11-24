@@ -3,9 +3,7 @@ package co.com.indibyte.truelink;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,6 +24,9 @@ public class MainActivity extends Activity{
             startActivity(new Intent(this, CardsActivity.class));
         } else {
             // Start and intent for the logged out activity
+
+         startActivity(new Intent(MainActivity.this,SplashActivity.class));
+
         setContentView(R.layout.signup_or_login);
 
         // Log in button click handler
