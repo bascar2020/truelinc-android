@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -90,6 +89,13 @@ public class TarjetaActivity extends Activity {
         tweet.setText(bundle.getString("Twit"));
 
         final Button btn = (Button) findViewById(R.id.btn_mas);
+
+
+        if(objectId==""|| objectId==null){
+            Log.d("pase","null");
+            btn.setVisibility(View.GONE);
+        }
+
         //Inisializar el button de agregar o eliminar
         if (tarjetaesmia) {
             btn.setTextColor(Color.RED);
@@ -140,6 +146,7 @@ public class TarjetaActivity extends Activity {
                 } else {
                     bundle.putByteArray("qr", bitmapQr);
                 }
+
 
                 Intent intent = new Intent(getApplicationContext(), PopUp.class);
                 intent.putExtras(bundle);

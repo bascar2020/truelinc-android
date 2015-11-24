@@ -61,12 +61,13 @@
                         android:cursorVisible="true"
                         android:drawableBottom="@android:color/transparent"
                         android:ems="10"
-                        android:inputType="textNoSuggestions"
+                        android:inputType="textEmailAddress"
                         android:singleLine="true"
                         android:textColor="@android:color/white"
                         android:textColorHint="@android:color/white"
                         android:textSize="25sp"
                         android:hint="e-mail"
+
                         android:id="@+id/username"
                         android:fontFamily="Arial" />
 

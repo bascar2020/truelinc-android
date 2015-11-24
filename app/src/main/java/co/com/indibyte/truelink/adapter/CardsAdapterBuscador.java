@@ -39,7 +39,7 @@ public class CardsAdapterBuscador extends BaseAdapter implements Filterable {
         mContext = context;
         this.tarjetasUser = tarjetasUser;
         this.filteredData = tarjetasUser;
-        Log.d("DEB", ""+tarjetasUser.size());
+        //Log.d("DEB", ""+tarjetasUser.size());
         inflater = LayoutInflater.from(mContext);
     }
 
