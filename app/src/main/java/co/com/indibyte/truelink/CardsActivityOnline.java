@@ -119,13 +119,20 @@ public class CardsActivityOnline extends Activity{
             ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
             woodwinds.whereContains("Nombre", busqueda.toLowerCase());
             woodwinds.whereEqualTo("Privada", false);
-            woodwinds.whereNotContainedIn("objectId", ParseUser.getCurrentUser().getList("tarjetas"));
+
+
 
 
             ParseQuery<Tarjetas> woodwinds2 = ParseQuery.getQuery(Tarjetas.class);
             woodwinds2.whereContains("Empresa", busqueda.toLowerCase());
             woodwinds2.whereEqualTo("Privada", false);
-            woodwinds2.whereNotContainedIn("objectId", ParseUser.getCurrentUser().getList("tarjetas"));
+
+            if(ParseUser.getCurrentUser().getList("tarjetas") != null){
+                woodwinds.whereNotContainedIn("objectId", ParseUser.getCurrentUser().getList("tarjetas"));
+                woodwinds2.whereNotContainedIn("objectId", ParseUser.getCurrentUser().getList("tarjetas"));
+            }
+
+
 
             //List<String> milista =  ParseUser.getCurrentUser().getList("tarjetas");
 
@@ -158,7 +165,7 @@ public class CardsActivityOnline extends Activity{
                         listView.setAdapter(swingBottomInAnimationAdapter);
 
 
-                        }
+                    }
                     mProgressDialog.dismiss();
                 }
             });

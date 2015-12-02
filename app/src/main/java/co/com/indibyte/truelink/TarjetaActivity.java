@@ -191,10 +191,11 @@ public class TarjetaActivity extends Activity {
                         }
                     }
                 }
+                startActivity(new Intent(TarjetaActivity.this, CardsActivity.class));
             }
         });
 
-       startActivity(new Intent(TarjetaActivity.this,CardsActivity.class));
+
 
 
 

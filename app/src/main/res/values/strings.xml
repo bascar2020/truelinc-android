@@ -25,6 +25,7 @@
     <string name="error_end">.</string>
 
 
+    <string name="msg_default_status">Escanea el Codigo Qr!</string>
     <string name="msg_alert_cardActivityTitle">Tenemos un Problema!</string>
     <string name="msg_alert_cardActivityBody">Comprueba tu conexion y vuelve a intentarlo</string>
     <string name="msg_alert_cardActivityBodyError1">El codigo QR no es valido!</string>
