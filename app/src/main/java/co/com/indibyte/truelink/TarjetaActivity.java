@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,7 +55,8 @@ public class TarjetaActivity extends Activity {
         ParseImageView foto = (ParseImageView) findViewById(R.id.iv_foto);
         ImageView logo = (ImageView) findViewById(R.id.iv_logo);
         ImageView qr = (ImageView) findViewById(R.id.iv_qr);
-
+        ImageView btn_facebook = (ImageView) findViewById(R.id.btn_face);
+        ImageView btn_twiter = (ImageView) findViewById(R.id.btn_tweet);
 
         final Bundle bundle = getIntent().getExtras();
         if (bundle.get("Foto")!=null){
@@ -87,6 +89,34 @@ public class TarjetaActivity extends Activity {
         ciudad.setText(bundle.getString("Ciudad"));
         cargo.setText(bundle.getString("Cargo"));
         tweet.setText(bundle.getString("Twit"));
+
+        if(bundle.getString("facebook").isEmpty()){
+            btn_facebook.setVisibility(View.GONE);
+        }else{
+            btn_facebook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                    browserIntent.setData(Uri.parse(bundle.getString("facebook")));
+                    startActivity(browserIntent);
+                }
+            });
+        }
+
+        if(bundle.getString("twiter").isEmpty()){
+            btn_twiter.setVisibility(View.GONE);
+        }else{
+            btn_twiter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                    browserIntent.setData(Uri.parse(bundle.getString("twiter")));
+                    startActivity(browserIntent);
+                }
+            });
+        }
+
+
 
         final Button btn = (Button) findViewById(R.id.btn_mas);
 

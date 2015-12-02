@@ -44,6 +44,8 @@ public class Tarjetas extends ParseObject {
     public ParseFile getQr(){return getParseFile("Qr");}
     public ParseFile getLogo(){return getParseFile("LogoEmpresa");}
     public Boolean getPrivada() {return getBoolean("Privada"); }
+    public String getTwiter() {return getString("twiter"); }
+    public String getFacebook() {return getString("facebook"); }
 
     public void setQr(ParseFile Qr){put("Qr", Qr);}
     public void setFoto(ParseFile photo){put("Foto", photo);}
@@ -57,4 +59,6 @@ public class Tarjetas extends ParseObject {
     public void setNombre(String Nombre){ put("Nombre", Nombre.toString());   }
     public void setLogo(ParseFile logo) {put("LogoEmpresa",logo);    }
     public void setPrivada(Boolean privada) {put("Privada",privada);    }
+    public void setTwiter(String Nombre){ put("twiter", Nombre.toString());   }
+    public void setFacebook(String Nombre){ put("facebook", Nombre.toString());   }
 }

@@ -134,7 +134,7 @@ public class CardsActivity extends Activity {
 
             if (misTarjetas!=null) {
                 ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
-                woodwinds.fromLocalDatastore();
+                if(!isNetworkAvailable(CardsActivity.this)){woodwinds.fromLocalDatastore();}
                 woodwinds.whereContainedIn("objectId", misTarjetas);
                 woodwinds.orderByAscending("Empresa");
                 woodwinds.findInBackground(new FindCallback<Tarjetas>() {
@@ -239,10 +239,28 @@ public class CardsActivity extends Activity {
                     query.whereEqualTo("objectId", idTarjeta.trim());
 
 
+
+                    mProgressDialog = new ProgressDialog(CardsActivity.this);
+                    // Set progressdialog title
+                    mProgressDialog.setTitle("Cargando tus tarjetas");
+                    // Set progressdialog message
+                    mProgressDialog.setMessage("Buscando Tarjetas..");
+                    mProgressDialog.setIndeterminate(false);
+                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    // Show progressdialog
+                    mProgressDialog.show();
+
+
+
+
                     query.findInBackground(new FindCallback<Tarjetas>() {
                         @Override
                         public void done(List<Tarjetas> objects, ParseException e) {
+
+
                             if (e == null) {
+
+
                                 ParseUser user = ParseUser.getCurrentUser();
 
                                 List<String> misTarjetas = user.getList("tarjetas");
@@ -278,7 +296,7 @@ public class CardsActivity extends Activity {
                                     swingBottomInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
 
                                     listView.setAdapter(swingBottomInAnimationAdapter);
-
+                                    mProgressDialog.dismiss();
 
 
 

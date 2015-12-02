@@ -3,8 +3,11 @@ package co.com.indibyte.truelink;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -100,16 +103,31 @@ public class CardsActivityOnline extends Activity{
         protected void onPreExecute() {
             super.onPreExecute();
 
-            // Create a progressdialog
-            mProgressDialog = new ProgressDialog(CardsActivityOnline.this);
-            // Set progressdialog title
-            mProgressDialog.setTitle("Cargando tus tarjetas");
-            // Set progressdialog message
-            mProgressDialog.setMessage("Buscando Tarjetas..");
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            // Show progressdialog
-            mProgressDialog.show();
+                if(isNetworkAvailable(CardsActivityOnline.this)){
+                    // Create a progressdialog
+                    mProgressDialog = new ProgressDialog(CardsActivityOnline.this);
+                    // Set progressdialog title
+                    mProgressDialog.setTitle("Cargando tus tarjetas");
+                    // Set progressdialog message
+                    mProgressDialog.setMessage("Buscando Tarjetas..");
+                    mProgressDialog.setIndeterminate(false);
+                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    // Show progressdialog
+                    mProgressDialog.show();
+                }else{
+                    AlertDialog alertDialog = new AlertDialog.Builder(CardsActivityOnline.this).create();
+                    alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
+                    alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBody));
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
+
+
 
         }
 
@@ -127,7 +145,7 @@ public class CardsActivityOnline extends Activity{
             woodwinds2.whereContains("Empresa", busqueda.toLowerCase());
             woodwinds2.whereEqualTo("Privada", false);
 
-            if(ParseUser.getCurrentUser().getList("tarjetas") != null){
+            if(ParseUser.getCurrentUser().getList("tarjetas") != null) {
                 woodwinds.whereNotContainedIn("objectId", ParseUser.getCurrentUser().getList("tarjetas"));
                 woodwinds2.whereNotContainedIn("objectId", ParseUser.getCurrentUser().getList("tarjetas"));
             }
@@ -164,9 +182,9 @@ public class CardsActivityOnline extends Activity{
                         swingBottomInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
                         listView.setAdapter(swingBottomInAnimationAdapter);
 
-
+                        mProgressDialog.dismiss();
                     }
-                    mProgressDialog.dismiss();
+
                 }
             });
 
@@ -184,5 +202,10 @@ public class CardsActivityOnline extends Activity{
 
         }
 
+    }
+
+    public boolean isNetworkAvailable( final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }
