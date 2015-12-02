@@ -83,6 +83,7 @@ public class CardsAdapterBuscador extends BaseAdapter implements Filterable {
         TextView empresa;
         ParseImageView foto;
         ImageView logo;
+        TextView cargo;
     }
 
     @Override
@@ -119,7 +120,7 @@ public class CardsAdapterBuscador extends BaseAdapter implements Filterable {
             holder.foto = (ParseImageView) view.findViewById(R.id.foto);
             holder.empresa = (TextView) view.findViewById(R.id.empresa);
             holder.nombre = (TextView) view.findViewById(R.id.nombre);
-
+            holder.cargo = (TextView) view.findViewById(R.id.tv_cargo);
             view.setTag(holder);
         }else {
             holder = (ViewHolder) view.getTag();
@@ -151,6 +152,7 @@ public class CardsAdapterBuscador extends BaseAdapter implements Filterable {
 
         holder.empresa.setText(capitalizeFirstLetter(filteredData.get(position).getEmpresa()));
         holder.nombre.setText(capitalizeFirstLetter(filteredData.get(position).getNombre()));
+        holder.cargo.setText(capitalizeFirstLetter(filteredData.get(position).getCargo()));
 //        Log.d("DEB", tarjetasUser.get(position).getLogo().toString());
 
         // Listen for ListView Item Click

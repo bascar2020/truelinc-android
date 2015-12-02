@@ -83,6 +83,7 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
         TextView empresa;
         ParseImageView foto;
         ImageView logo;
+        TextView cargo;
     }
 
     @Override
@@ -119,6 +120,7 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
             holder.foto = (ParseImageView) view.findViewById(R.id.foto);
             holder.empresa = (TextView) view.findViewById(R.id.empresa);
             holder.nombre = (TextView) view.findViewById(R.id.nombre);
+            holder.cargo = (TextView) view.findViewById(R.id.tv_cargo);
 
             view.setTag(holder);
         }else {
@@ -151,6 +153,7 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
 
         holder.empresa.setText(capitalizeFirstLetter(filteredData.get(position).getEmpresa()));
         holder.nombre.setText(capitalizeFirstLetter(filteredData.get(position).getNombre()));
+        holder.cargo.setText(capitalizeFirstLetter(filteredData.get(position).getCargo()));
 //        Log.d("DEB", tarjetasUser.get(position).getLogo().toString());
 
         // Listen for ListView Item Click
@@ -160,29 +163,80 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
             public void onClick(View arg0) {
 
                 Bundle bundle = new Bundle();
-                if (filteredData.get(position).getNombre()==null){bundle.putString("Nombre", "");}else{bundle.putString("Nombre", capitalizeFirstLetter(filteredData.get(position).getNombre()));}
-                if (filteredData.get(position).getEmpresa()==null){bundle.putString("Empresa", "");}else{bundle.putString("Empresa", capitalizeFirstLetter(filteredData.get(position).getEmpresa()));}
-                if (filteredData.get(position).getCargo()==null){bundle.putString("Cargo", "");}else{bundle.putString("Cargo", capitalizeFirstLetter(filteredData.get(position).getCargo()));}
-                if (filteredData.get(position).getDireccion()==null){bundle.putString("Direccion", "");}else{bundle.putString("Direccion", filteredData.get(position).getDireccion());}
-                if (filteredData.get(position).getTelefono()==null){bundle.putString("Telefono", "");}else{bundle.putString("Telefono", filteredData.get(position).getTelefono());}
-                if (filteredData.get(position).getEmail()==null){bundle.putString("Email", "");}else{bundle.putString("Email", filteredData.get(position).getEmail());}
-                if (filteredData.get(position).getCiudad()==null){bundle.putString("Ciudad", "");}else{bundle.putString("Ciudad", filteredData.get(position).getCiudad());}
-                if (filteredData.get(position).getTwit()==null){bundle.putString("Twit", "");}else{bundle.putString("Twit", filteredData.get(position).getTwit());}
-                bundle.putString("objecId",filteredData.get(position).getObjectID());
-                bundle.putBoolean("follow",true);// esta variable representa que el usuario sigue esta tarjeta
-                if (filteredData.get(position).getTwiter()==null){bundle.putString("twiter", "");}else{bundle.putString("twiter", filteredData.get(position).getTwiter());}
-                if (filteredData.get(position).getFacebook()==null){bundle.putString("facebook", "");}else{bundle.putString("facebook", filteredData.get(position).getFacebook());}
+                if (filteredData.get(position).getNombre() == null) {
+                    bundle.putString("Nombre", "");
+                } else {
+                    bundle.putString("Nombre", capitalizeFirstLetter(filteredData.get(position).getNombre()));
+                }
+                if (filteredData.get(position).getEmpresa() == null) {
+                    bundle.putString("Empresa", "");
+                } else {
+                    bundle.putString("Empresa", capitalizeFirstLetter(filteredData.get(position).getEmpresa()));
+                }
+                if (filteredData.get(position).getCargo() == null) {
+                    bundle.putString("Cargo", "");
+                } else {
+                    bundle.putString("Cargo", capitalizeFirstLetter(filteredData.get(position).getCargo()));
+                }
+                if (filteredData.get(position).getDireccion() == null) {
+                    bundle.putString("Direccion", "");
+                } else {
+                    bundle.putString("Direccion", filteredData.get(position).getDireccion());
+                }
+                if (filteredData.get(position).getTelefono() == null) {
+                    bundle.putString("Telefono", "");
+                } else {
+                    bundle.putString("Telefono", filteredData.get(position).getTelefono());
+                }
+                if (filteredData.get(position).getEmail() == null) {
+                    bundle.putString("Email", "");
+                } else {
+                    bundle.putString("Email", filteredData.get(position).getEmail());
+                }
+                if (filteredData.get(position).getCiudad() == null) {
+                    bundle.putString("Ciudad", "");
+                } else {
+                    bundle.putString("Ciudad", filteredData.get(position).getCiudad());
+                }
+                if (filteredData.get(position).getTwit() == null) {
+                    bundle.putString("Twit", "");
+                } else {
+                    bundle.putString("Twit", filteredData.get(position).getTwit());
+                }
+                bundle.putString("objecId", filteredData.get(position).getObjectID());
+                bundle.putBoolean("follow", true);// esta variable representa que el usuario sigue esta tarjeta
+                if (filteredData.get(position).getTwiter() == null) {
+                    bundle.putString("twiter", "");
+                } else {
+                    bundle.putString("twiter", filteredData.get(position).getTwiter());
+                }
+                if (filteredData.get(position).getFacebook() == null) {
+                    bundle.putString("facebook", "");
+                } else {
+                    bundle.putString("facebook", filteredData.get(position).getFacebook());
+                }
 
                 try {
-                    if (filteredData.get(position).getFoto() == null){bundle.putByteArray("Foto",null);}else{bundle.putByteArray("Foto", filteredData.get(position).getFoto().getData());}
-                    if (filteredData.get(position).getLogo()==null){bundle.putByteArray("LogoEmpresa",null);}else{bundle.putByteArray("LogoEmpresa", filteredData.get(position).getLogo().getData());}
-                    if (filteredData.get(position).getQr()==null){bundle.putByteArray("Qr",null);}else{bundle.putByteArray("Qr", filteredData.get(position).getQr().getData());}
+                    if (filteredData.get(position).getFoto() == null) {
+                        bundle.putByteArray("Foto", null);
+                    } else {
+                        bundle.putByteArray("Foto", filteredData.get(position).getFoto().getData());
+                    }
+                    if (filteredData.get(position).getLogo() == null) {
+                        bundle.putByteArray("LogoEmpresa", null);
+                    } else {
+                        bundle.putByteArray("LogoEmpresa", filteredData.get(position).getLogo().getData());
+                    }
+                    if (filteredData.get(position).getQr() == null) {
+                        bundle.putByteArray("Qr", null);
+                    } else {
+                        bundle.putByteArray("Qr", filteredData.get(position).getQr().getData());
+                    }
                 } catch (com.parse.ParseException e) {
                     e.printStackTrace();
-                    Log.d("Error",e.getMessage());
+                    Log.d("Error", e.getMessage());
                 }
                 // Send single item click data to SingleItemView Class
-
 
 
                 Intent intent = new Intent(mContext, TarjetaActivity.class);
