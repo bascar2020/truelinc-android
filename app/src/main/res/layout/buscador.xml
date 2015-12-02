@@ -12,27 +12,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="1"
-            android:background="#fff"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="8dp">
+            android:background="#000000">
 
             <EditText android:id="@+id/inputSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:hint="Buscar Tarjetas"
-                android:cursorVisible="false"
-                android:ems="10"
+                android:cursorVisible="true"
                 android:singleLine="false"
                 android:inputType="textNoSuggestions"
-
                 android:layout_weight="1.01"
-                android:textColorHint="#067999"
+                android:background="#00ffffff"
+                android:textColorHint="#fff"
                 android:textIsSelectable="false"
-                android:textColor="#067999"
-                android:background="#fff"
-                android:backgroundTint="#fff"
-                android:textColorLink="#067999"
-                android:layout_marginLeft="10dp"
+                android:textColor="#fff"
+                android:textColorLink="#fff"
+                android:layout_marginLeft="8dp"
 
                 android:imeOptions="actionSearch"
 
@@ -55,7 +50,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#CFD8DC"
+            android:background="#000000"
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="8dp"

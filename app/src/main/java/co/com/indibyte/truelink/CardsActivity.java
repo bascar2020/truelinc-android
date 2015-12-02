@@ -64,9 +64,6 @@ public class CardsActivity extends Activity {
 
         setContentView(R.layout.activity_cards);
         ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
-
-
-
         new RemoteDataTask().execute();
 
         final EditText inputSearch = (EditText) findViewById(R.id.inputSearch);

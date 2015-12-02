@@ -31,9 +31,7 @@
 
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="10dp"
+              android:layout_marginBottom="10dp"
             android:gravity="center"
             android:inputType="textCapWords"
             android:capitalize="sentences" />
@@ -43,57 +41,89 @@
             android:layout_height="100dp"
             android:id="@+id/iv_logo"
             android:layout_gravity="center"
-            android:layout_alignRight="@+id/tv_nombre"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/nologo" />
+            android:src="@drawable/nologo"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp" />
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/scrollView" >
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:background="@drawable/city">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1"
-            android:background="#B3E5FC">
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <RelativeLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:text="Empresa"
-                    android:id="@+id/tv_empresa"
-                    android:textSize="20dp"
-                    android:textColor="#067999"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="16dp"
-                    android:inputType="textCapWords"
-                    android:capitalize="sentences" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="176dp"
-                    android:layout_height="wrap_content"
-                    android:text="Cargo"
-                    android:id="@+id/tv_cargo"
-                    android:textSize="16dp"
-                    android:textColor="#067999"
-                    android:layout_marginTop="8dp"
-                    android:inputType="textCapWords|textCapSentences|textCapCharacters"
-                    android:layout_marginLeft="10dp" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="254dp"
+                        android:layout_height="match_parent"
+                        android:text="Empresa"
+                        android:id="@+id/tv_empresa"
+                        android:textSize="17dp"
+                        android:textColor="#fff"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:inputType="textCapWords"
+                        android:capitalize="sentences" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cargo"
+                        android:id="@+id/tv_cargo"
+                        android:textSize="13dp"
+                        android:textColor="#fff"
+                        android:layout_marginTop="8dp"
+                        android:inputType="textCapWords|textCapSentences|textCapCharacters"
+                        android:layout_marginLeft="16dp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/btn_face"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/face"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toLeftOf="@+id/btn_tweet"
+                    android:layout_marginRight="8dp"
+                    android:clickable="true"
+                    android:longClickable="false" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/btn_tweet"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/tweet"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
+                android:background="#a0737272"
                 android:weightSum="1"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="16dp"
@@ -102,7 +132,7 @@
                 <FrameLayout
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:background="#067999">
+                    android:background="#000000">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -128,14 +158,18 @@
                         android:id="@+id/tv_telefono"
                         android:layout_weight="0.23"
                         android:layout_marginTop="12dp"
-                        android:autoLink="phone" />
+                        android:autoLink="phone"
+                        android:textColor="#fff"
+                        android:textColorLink="#fff"
+                        android:textColorHint="#fff"
+                        android:textColorHighlight="#fff" />
 
                     <TextView
                         android:layout_width="135dp"
                         android:layout_height="wrap_content"
                         android:text="Movil"
                         android:textSize="12dp"
-                        android:textColor="#2fd4ff"
+                        android:textColor="#fff"
                         android:id="@+id/textView14"
                         android:layout_weight="0.54" />
                 </LinearLayout>
@@ -149,12 +183,12 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="16dp"
-                android:background="#fff">
+                android:background="#a0737272">
 
                 <FrameLayout
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:background="#067999">
+                    android:background="#000000">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -182,14 +216,18 @@
                         android:id="@+id/tv_correo"
                         android:layout_marginTop="12dp"
                         android:autoLink="email"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="#fff"
+                        android:textColorHighlight="#fff"
+                        android:textColorHint="#fff"
+                        android:textColorLink="#fff" />
 
                     <TextView
                         android:layout_width="135dp"
                         android:layout_height="wrap_content"
                         android:text="Correo"
                         android:textSize="12dp"
-                        android:textColor="#2fd4ff"
+                        android:textColor="#fff"
                         android:id="@+id/textView17"
                         android:layout_weight="0.54" />
                 </LinearLayout>
@@ -200,7 +238,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="#a0737272"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp">
@@ -211,7 +249,7 @@
                     android:text="Tweet"
                     android:id="@+id/textView2"
                     android:textSize="20dp"
-                    android:textColor="#067999"
+                    android:textColor="#fff"
                     android:layout_marginLeft="12dp" />
 
                 <TextView
@@ -224,7 +262,8 @@
                     android:digits="140"
                     android:textSize="12dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginBottom="2dp" />
+                    android:layout_marginBottom="2dp"
+                    android:textColor="#fff" />
             </LinearLayout>
 
             <LinearLayout
@@ -255,11 +294,11 @@
                             android:layout_height="match_parent"
                             android:layout_marginRight="1dp"
                             android:layout_marginTop="2dp"
-                            android:background="#fff">
+                            android:background="#ad737272">
                             <FrameLayout
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:background="#067999">>
+                                android:background="#000000">>
                                 <ImageView
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
@@ -284,14 +323,15 @@
                                     android:text="New Text"
                                     android:textSize="12dp"
                                     android:id="@+id/tv_direccion"
-                                    android:layout_marginTop="12dp" />
+                                    android:layout_marginTop="12dp"
+                                    android:textColor="#fff" />
 
                                 <TextView
                                     android:layout_width="135dp"
                                     android:layout_height="wrap_content"
                                     android:text="Direccion"
                                     android:textSize="10dp"
-                                    android:textColor="#2fd4ff"
+                                    android:textColor="#fff"
                                     android:id="@+id/textView19"
                                     android:layout_weight="0.54" />
                             </LinearLayout>
@@ -302,11 +342,11 @@
                             android:layout_height="58dp"
                             android:layout_marginRight="1dp"
                             android:layout_marginTop="4dp"
-                            android:background="#fff">
+                            android:background="#ad737272">
                             <FrameLayout
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                android:background="#067999">>
+                                android:background="#000000">>
                                 <ImageView
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
@@ -331,14 +371,15 @@
                                     android:text="New Text"
                                     android:textSize="12dp"
                                     android:id="@+id/tv_ciudad"
-                                    android:layout_marginTop="12dp" />
+                                    android:layout_marginTop="12dp"
+                                    android:textColor="#fff" />
 
                                 <TextView
                                     android:layout_width="135dp"
                                     android:layout_height="wrap_content"
                                     android:text="Ubicacion"
                                     android:textSize="10dp"
-                                    android:textColor="#2fd4ff"
+                                    android:textColor="#fff"
                                     android:layout_weight="0.54" />
                             </LinearLayout>
                         </LinearLayout>
@@ -350,7 +391,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="8dp"
                         android:transitionGroup="false"
-                        android:background="#fff"
+                        android:background="#ad737272"
                         android:weightSum="1"
                         android:baselineAligned="false"
                         android:layout_marginLeft="10dp">
@@ -358,7 +399,7 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:background="#067999"
+                            android:background="#000000"
                             android:layout_height="wrap_content">
 
                             <TextView
@@ -386,16 +427,14 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp">
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/btn_mas"
-                    android:background="#fff"/>
+                    android:background="#000000"/>
             </LinearLayout>
 
             <LinearLayout
@@ -404,7 +443,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:background="#fff">
+                android:background="#000000">
 
                 <ImageView
                     android:layout_width="wrap_content"
