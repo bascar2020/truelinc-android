@@ -195,11 +195,6 @@ public class CardsActivityOnline extends Activity{
         @Override
         protected void onPostExecute(ArrayAdapter<Tarjetas> tarjetasArrayAdapter) {
             super.onPostExecute(tarjetasArrayAdapter);
-
-
-
-
-
         }
 
     }

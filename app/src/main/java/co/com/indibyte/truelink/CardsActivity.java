@@ -15,6 +15,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -101,7 +104,21 @@ public class CardsActivity extends Activity {
             }
         });
 
+    ListView listaTarjetas = (ListView) findViewById(R.id.activity_googlecards_listview);
+        listaTarjetas.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                inputSearch.clearFocus();
+                InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                mgr.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
 
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
 
     }
 
@@ -110,6 +127,9 @@ public class CardsActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(CardsActivity.this);
             // Set progressdialog title
