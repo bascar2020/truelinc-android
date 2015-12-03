@@ -3,12 +3,14 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:itemBackground">@color/blue</item>
+
         <!-- Customize your theme here. -->
     </style>
 
     <style name="ActionBAR" parent="Theme.AppCompat.Light">
         <item name="android:windowActionBar">true</item>
         <item name="android:windowNoTitle">false</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <item name="android:itemBackground">@color/blue</item>
         <item name="android:actionBarStyle">@style/ActionBarLight</item>
         <item name="android:popupMenuStyle">@style/ListPopupWindowLight</item>
