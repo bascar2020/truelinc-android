@@ -17,6 +17,7 @@
 <resources>
 
     <color name="blue">#01579b</color>
+    <color name="negro">#000000</color>
     <color name="white">#fff</color>
     <color name="contents_text">#ff000000</color>
   <color name="encode_view">#ffffffff</color>

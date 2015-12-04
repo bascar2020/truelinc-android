@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/linearLayout4"
-                android:background="#c3000000"
+                android:background="#c3ffffff"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true">
 
@@ -45,19 +45,20 @@
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
                     android:text="Nombre"
-                    android:textColor="#fff"
+                    android:textColor="#01579b"
                     android:id="@+id/empresa"
                     android:layout_gravity="bottom"
                     android:clickable="false"
                     android:layout_above="@+id/nombre"
                     android:layout_toRightOf="@+id/logo"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:textColor="#fff"
+                    android:textSize="14dp"
+                    android:textColor="#01579b"
                     android:text="Empresa"
                     android:id="@+id/nombre"
                     android:clickable="false"
@@ -70,8 +71,8 @@
                     android:layout_height="wrap_content"
                     android:text="Cargo"
                     android:id="@+id/tv_cargo"
-                    android:textColor="#fff"
-                    android:textSize="12dp"
+                    android:textColor="#01579b"
+                    android:textSize="14dp"
                     android:clickable="false"
                     android:layout_below="@+id/nombre"
                     android:layout_toRightOf="@+id/logo"
@@ -86,7 +87,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:background="#fff"
+        android:background="#01579b"
         android:layout_below="@+id/linearLayout7"
         android:layout_alignParentLeft="true"
         android:id="@+id/linearLayout3"></LinearLayout>

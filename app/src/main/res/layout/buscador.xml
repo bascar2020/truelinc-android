@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:weightSum="1"
-            android:background="#000000"
+            android:background="#fff"
             android:layout_marginBottom="0.2dp">
 
             <EditText android:id="@+id/inputSearch"
@@ -23,12 +23,11 @@
                 android:singleLine="false"
                 android:inputType="textNoSuggestions"
                 android:layout_weight="1.01"
-                android:background="#00ffffff"
-                android:textColorHint="#fff"
+                android:textColorHint="#01579b"
+                android:background="#00000000"
                 android:textIsSelectable="false"
-                android:textColor="#fff"
-                android:textColorLink="#fff"
-
+                android:textColor="#01579b"
+                android:textColorLink="#01579b"
                 android:layout_marginLeft="8dp"
                 android:textCursorDrawable="@drawable/cursor"
 
@@ -55,7 +54,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#000000"
+            android:background="#fff"
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="8dp"
