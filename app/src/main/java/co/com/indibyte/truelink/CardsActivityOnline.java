@@ -27,6 +27,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import co.com.indibyte.truelink.adapter.CardsAdapterBuscador;
@@ -107,9 +108,9 @@ public class CardsActivityOnline extends Activity{
                     // Create a progressdialog
                     mProgressDialog = new ProgressDialog(CardsActivityOnline.this);
                     // Set progressdialog title
-                    mProgressDialog.setTitle("Cargando tus tarjetas");
+                    mProgressDialog.setTitle(R.string.dialog_tittle);
                     // Set progressdialog message
-                    mProgressDialog.setMessage("Buscando Tarjetas..");
+                    mProgressDialog.setMessage(getApplicationContext().getText(R.string.dialog_message));
                     mProgressDialog.setIndeterminate(false);
                     mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     // Show progressdialog
@@ -145,9 +146,16 @@ public class CardsActivityOnline extends Activity{
             woodwinds2.whereContains("Empresa", busqueda.toLowerCase());
             woodwinds2.whereEqualTo("Privada", false);
 
+            ParseQuery<Tarjetas> woodwinds3 = ParseQuery.getQuery(Tarjetas.class);
+            String strName = busqueda.toLowerCase();
+            String[] strArray = new String[] {strName};
+            woodwinds3.whereContainedIn("tags",Arrays.asList(strArray));
+            woodwinds3.whereEqualTo("Privada", false);
+
             if(ParseUser.getCurrentUser().getList("tarjetas") != null) {
                 woodwinds.whereNotContainedIn("objectId", ParseUser.getCurrentUser().getList("tarjetas"));
                 woodwinds2.whereNotContainedIn("objectId", ParseUser.getCurrentUser().getList("tarjetas"));
+                woodwinds3.whereNotContainedIn("objectId", ParseUser.getCurrentUser().getList("tarjetas"));
             }
 
 
@@ -159,14 +167,14 @@ public class CardsActivityOnline extends Activity{
             List<ParseQuery<Tarjetas>> queries = new ArrayList<ParseQuery<Tarjetas>>();
             queries.add(woodwinds);
             queries.add(woodwinds2);
+            queries.add(woodwinds3);
 
             ParseQuery<Tarjetas> mainQuery = ParseQuery.or(queries);
             mainQuery.findInBackground(new FindCallback<Tarjetas>() {
                 public void done(List<Tarjetas> tarjetas, ParseException exception) {
                     if (tarjetas == null) {
-                        Log.d("query", "request failed.");
+                        //Log.d("query", "request failed.");
                     } else {
-                        Log.d("query", "Succes Hola care monda!.");
                         if (tarjetas.isEmpty()) {
                             Tarjetas vacia = new Tarjetas();
                             vacia.setNombre("datos no encontrados");

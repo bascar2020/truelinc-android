@@ -30,5 +30,11 @@
     <string name="msg_alert_cardActivityBody">Comprueba tu conexion y vuelve a intentarlo</string>
     <string name="msg_alert_cardActivityBodyError1">El codigo QR no es valido!</string>
     <string name="msg_alert_cardActivityBodyError2">:( Trabajamos para mejorar esto! Disculpa :)</string>
-
+    <string name="errorconexion">Comprueba tu conexión y vuelve a intentarlo</string>
+    <string name="confirmation">¿Desea eliminar la tarjeta?</string>
+    <string name="yes">si</string>
+    <string name="no">no</string>
+    <string name="title_alert">Alerta</string>
+    <string name="dialog_tittle">Cargando tus tarjetas</string>
+    <string name="dialog_message">Buscando Tarjetas..</string>
 </resources>

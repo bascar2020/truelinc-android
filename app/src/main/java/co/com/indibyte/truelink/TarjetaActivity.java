@@ -1,6 +1,8 @@
 package co.com.indibyte.truelink;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -139,14 +141,27 @@ public class TarjetaActivity extends Activity {
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 if (tarjetaesmia) {
                     // lamar la funcion eliminar: Eliminar el objectId del array, subirlo a la base de datos. recargar la base local y devoverse a la anterior ventana
-                    eliminarTarjeta();
-                    Button button = (Button) v;
-                    button.setTextColor(Color.GREEN);
-                    button.setText("Agregar");
-                    tarjetaesmia=false;
+                    new AlertDialog.Builder(TarjetaActivity.this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle(R.string.title_alert)
+                            .setMessage(R.string.confirmation)
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    eliminarTarjeta();
+                                    Button button = (Button) v;
+                                    button.setTextColor(Color.GREEN);
+                                    button.setText("Agregar");
+                                    tarjetaesmia=false;
+                                }
+                            })
+                            .setNegativeButton(R.string.no,null)
+                            .show();
+
+
 
                 } else {
                     if (!tarjetaesmia) {
@@ -232,33 +247,25 @@ public class TarjetaActivity extends Activity {
     }
 
     private void eliminarTarjeta(){
+
         ParseUser user = ParseUser.getCurrentUser();
         List<String> misTarjetas = user.getList("tarjetas");
-
         if (misTarjetas.remove(objectId)){
-            Log.d("ANTES", "PASE");
+
             user.put("tarjetas", misTarjetas);
             user.saveInBackground();
-
-
-//            ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
-//            woodwinds.whereContainedIn("objectId", misTarjetas);
-//
-//                try {
-//                    ParseObject.deleteAllInBackground(woodwinds.find());
-//                    ParseObject.pinAllInBackground(woodwinds.find());
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
 
             Intent intent = new Intent(TarjetaActivity.this, CardsActivity.class);
             startActivity(intent);
 
 
         }else{
-            Toast.makeText(this, "No se puede eliminar compruebe conexion..", Toast.LENGTH_SHORT)
-                       .show();
+            Toast.makeText(TarjetaActivity.this, R.string.errorconexion, Toast.LENGTH_SHORT).show();
         }
+
+
+
+
     }
 
 

@@ -24,6 +24,7 @@ import java.util.List;
 import co.com.indibyte.truelink.R;
 import co.com.indibyte.truelink.TarjetaActivity;
 import co.com.indibyte.truelink.model.Tarjetas;
+import co.com.indibyte.truelink.util.utils;
 
 public class CardsAdapter extends BaseAdapter implements Filterable {
 
@@ -53,7 +54,7 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
                 if (charSequence!=null || charSequence.length() !=0 ) {
                     List<Tarjetas> listResult = new ArrayList<Tarjetas>();
                     for (Tarjetas t : list){
-                        if (t.getNombre().toLowerCase().contains(charSequence.toString().toLowerCase())||t.getEmpresa().toLowerCase().contains(charSequence.toString().toLowerCase())){
+                        if (t.getNombre().toLowerCase().contains(charSequence.toString().toLowerCase())||t.getEmpresa().toLowerCase().contains(charSequence.toString().toLowerCase())|| utils.isTaginarray(charSequence.toString().toLowerCase(),t.getTags())){
                             listResult.add(t);
                         }
                     }

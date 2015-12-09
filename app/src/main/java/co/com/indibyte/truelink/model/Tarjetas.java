@@ -5,6 +5,8 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.List;
+
 /**
  * Created by CharlieMolina on 24/09/15.
  */
@@ -46,6 +48,7 @@ public class Tarjetas extends ParseObject {
     public Boolean getPrivada() {return getBoolean("Privada"); }
     public String getTwiter() {return getString("twiter"); }
     public String getFacebook() {return getString("facebook"); }
+    public List<String> getTags(){ return getList("tags");}
 
     public void setQr(ParseFile Qr){put("Qr", Qr);}
     public void setFoto(ParseFile photo){put("Foto", photo);}
