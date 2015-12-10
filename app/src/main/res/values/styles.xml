@@ -2,16 +2,16 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:itemBackground">@color/blue</item>
 
         <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@color/primary_text_material_light</item>
     </style>
 
     <style name="ActionBAR" parent="Theme.AppCompat.Light">
         <item name="android:windowActionBar">true</item>
         <item name="android:windowNoTitle">false</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:itemBackground">@color/white</item>
+        <item name="android:itemBackground">#FF666666</item>
         <item name="android:actionBarStyle">@style/ActionBarLight</item>
         <item name="android:popupMenuStyle">@style/ListPopupWindowLight</item>
         <item name="android:icon">@mipmap/ic_launcher</item>
@@ -23,7 +23,8 @@
 
 
     <style name="ListPopupWindowLight" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
-        <item name="android:background">@color/negro</item>
+        <item name="android:background">@color/white</item>
+
     </style>
 
 
