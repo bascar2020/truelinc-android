@@ -117,10 +117,18 @@
                     android:src="@drawable/tweet"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="16dp"
                     android:clickable="true"
                     android:nestedScrollingEnabled="false"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="8dp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/btn_web"
+                    android:src="@drawable/www"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="16dp" />
             </LinearLayout>
 
             <LinearLayout
