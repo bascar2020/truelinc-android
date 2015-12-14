@@ -59,6 +59,7 @@ public class TarjetaActivity extends Activity {
         ImageView qr = (ImageView) findViewById(R.id.iv_qr);
         ImageView btn_facebook = (ImageView) findViewById(R.id.btn_face);
         ImageView btn_twiter = (ImageView) findViewById(R.id.btn_tweet);
+        ImageView btn_www = (ImageView) findViewById(R.id.btn_web);
 
         final Bundle bundle = getIntent().getExtras();
         if (bundle.get("Foto")!=null){
@@ -113,6 +114,19 @@ public class TarjetaActivity extends Activity {
                 public void onClick(View v) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW);
                     browserIntent.setData(Uri.parse(bundle.getString("twiter")));
+                    startActivity(browserIntent);
+                }
+            });
+        }
+
+        if(bundle.getString("www").isEmpty()){
+            btn_www.setVisibility(View.GONE);
+        }else{
+            btn_www.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                    browserIntent.setData(Uri.parse(bundle.getString("www")));
                     startActivity(browserIntent);
                 }
             });

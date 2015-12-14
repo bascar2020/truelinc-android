@@ -48,6 +48,7 @@ public class Tarjetas extends ParseObject {
     public Boolean getPrivada() {return getBoolean("Privada"); }
     public String getTwiter() {return getString("twiter"); }
     public String getFacebook() {return getString("facebook"); }
+    public String getWWW() {return getString("www"); }
     public List<String> getTags(){ return getList("tags");}
 
     public void setQr(ParseFile Qr){put("Qr", Qr);}
