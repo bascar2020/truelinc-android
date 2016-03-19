@@ -171,7 +171,7 @@ public class CardsActivityOnline extends Activity{
 
             ParseQuery<Tarjetas> mainQuery = ParseQuery.or(queries);
             mainQuery.findInBackground(new FindCallback<Tarjetas>() {
-                public void done(List<Tarjetas> tarjetas, ParseException exception) {
+                    public void done(List<Tarjetas> tarjetas, ParseException exception) {
                     if (tarjetas == null) {
                         //Log.d("query", "request failed.");
                     } else {

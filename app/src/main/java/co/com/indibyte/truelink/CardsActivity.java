@@ -96,13 +96,13 @@ public class CardsActivity extends Activity {
                 inputSearch.setText("");
             }
         });
-        ImageView btnBuscar = (ImageView) findViewById(R.id.btn_buscar);
+       /* ImageView btnBuscar = (ImageView) findViewById(R.id.btn_buscar);
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), CardsActivityOnline.class));
             }
-        });
+        });*/
 
     ListView listaTarjetas = (ListView) findViewById(R.id.activity_googlecards_listview);
         listaTarjetas.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -151,6 +151,7 @@ public class CardsActivity extends Activity {
                     Log.d("TARJETAS",a);
                 }
             }
+
 
             if (misTarjetas!=null) {
                 ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
@@ -227,10 +228,9 @@ public class CardsActivity extends Activity {
                 Intent it = new Intent(this, com.google.zxing.client.android.CaptureActivity.class);
                 startActivityForResult(it, 0);
                 break;
-//            case R.id.action_searh:
-//                Toast.makeText(this, "Search selected", Toast.LENGTH_SHORT)
-//                        .show();
-//                break;
+            case R.id.btn_buscar:
+                startActivity(new Intent(getApplicationContext(), CardsActivityOnline.class));
+                break;
             // action with ID action_settings was selected
             case R.id.action_settings:
                 ParseUser.getCurrentUser().logOut();

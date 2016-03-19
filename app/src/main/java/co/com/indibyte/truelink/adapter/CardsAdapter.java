@@ -216,7 +216,7 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
                 } else {
                     bundle.putString("facebook", filteredData.get(position).getFacebook());
                 }
-                if (filteredData.get(position).getFacebook() == null) {
+                if (filteredData.get(position).getWWW() == null) {
                     bundle.putString("www", "");
                 } else {
                     bundle.putString("www", filteredData.get(position).getWWW());

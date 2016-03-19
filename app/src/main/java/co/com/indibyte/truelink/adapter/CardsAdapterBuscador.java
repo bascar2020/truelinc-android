@@ -176,7 +176,7 @@ public class CardsAdapterBuscador extends BaseAdapter implements Filterable {
                 bundle.putBoolean("follow",false);// esta variable representa que el usuario sigue esta tarjeta
                 if (filteredData.get(position).getTwiter()==null){bundle.putString("twiter", "");}else{bundle.putString("twiter", filteredData.get(position).getTwiter());}
                 if (filteredData.get(position).getFacebook()==null){bundle.putString("facebook", "");}else{bundle.putString("facebook", filteredData.get(position).getFacebook());}
-                if (filteredData.get(position).getFacebook() == null) {bundle.putString("www", "");} else {bundle.putString("www", filteredData.get(position).getWWW());}
+                if (filteredData.get(position).getWWW() == null) {bundle.putString("www", "");} else {bundle.putString("www", filteredData.get(position).getWWW());}
                 try {
                     if (filteredData.get(position).getFoto() == null){bundle.putByteArray("Foto",null);}else{bundle.putByteArray("Foto", filteredData.get(position).getFoto().getData());}
                     if (filteredData.get(position).getLogo()==null){bundle.putByteArray("LogoEmpresa",null);}else{bundle.putByteArray("LogoEmpresa", filteredData.get(position).getLogo().getData());}

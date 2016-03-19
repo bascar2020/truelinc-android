@@ -62,7 +62,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp" />
 
-        <ImageView
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_buscar"
@@ -70,7 +70,7 @@
             android:clickable="true"
             android:layout_marginRight="4dp"
             android:layout_marginTop="2dp"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical" />-->
     </LinearLayout>
 
 
