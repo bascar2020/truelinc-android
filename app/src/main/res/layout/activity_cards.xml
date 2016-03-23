@@ -39,7 +39,7 @@
         <EditText android:id="@+id/inputSearch"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:hint="Buscar Tarjetas"
+            android:hint="Filtrar Tarjetas"
             android:cursorVisible="true"
             android:singleLine="false"
             android:inputType="textNoSuggestions"
@@ -87,5 +87,12 @@
     android:scrollbarStyle="outsideOverlay"
     tools:ignore="overdraw"
         android:background="#fff" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:background="@drawable/tutorial"
+        android:src="3" />
 
 </LinearLayout>
