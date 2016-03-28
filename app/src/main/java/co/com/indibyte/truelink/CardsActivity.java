@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -64,10 +65,11 @@ public class CardsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_cards);
         ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
         new RemoteDataTask().execute();
+
+
 
         final EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
         inputSearch.addTextChangedListener(new TextWatcher() {
