@@ -103,8 +103,8 @@
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
-            android:background="@drawable/tutorial2" />
+            android:id="@+id/ib_tuto"
+            android:background="@drawable/tutorial1" />
     </RelativeLayout>
 
 </RelativeLayout>
