@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -15,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -65,6 +65,9 @@ public class CardsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        misTarjetas = ParseUser.getCurrentUser().getList("tarjetas");
+
         setContentView(R.layout.activity_cards);
         ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
         new RemoteDataTask().execute();
@@ -122,7 +125,14 @@ public class CardsActivity extends Activity {
             }
         });
 
+
+
+        // llamar funcion tutorial para comprobar si debe o no poner la imagen
+        tutorial();
+
+
     }
+
 
     private class RemoteDataTask extends AsyncTask<Void,Void,Void>{
 
@@ -147,12 +157,6 @@ public class CardsActivity extends Activity {
         protected Void doInBackground(Void... params) {
 
 
-            misTarjetas = ParseUser.getCurrentUser().getList("tarjetas");
-            if(misTarjetas!= null){
-                for (String a:misTarjetas ) {
-                    Log.d("TARJETAS",a);
-                }
-            }
 
 
             if (misTarjetas!=null) {
@@ -251,6 +255,7 @@ public class CardsActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==0 && RESULT_OK==resultCode){
 
+
             if (isNetworkAvailable(CardsActivity.this)) {
                 if (data.getStringExtra("SCAN_RESULT").substring(0, 8).equalsIgnoreCase("truelinc")) {
                     String[] scan_results = data.getStringExtra("SCAN_RESULT").split(":");
@@ -281,6 +286,11 @@ public class CardsActivity extends Activity {
 
 
                             if (e == null) {
+
+                                //volver invisible la imagen tutorial
+                                ImageView im = (ImageView) findViewById(R.id.img_tutorial);
+                                im.setVisibility(View.INVISIBLE);
+
 
 
                                 ParseUser user = ParseUser.getCurrentUser();
@@ -323,7 +333,6 @@ public class CardsActivity extends Activity {
 
 
                                 } else
-
                                 {
                                     AlertDialog alertDialog = new AlertDialog.Builder(CardsActivity.this).create();
                                     alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
@@ -382,10 +391,8 @@ public class CardsActivity extends Activity {
                 alertDialog.show();
             }
 
-
-
-
         }
+
     }
 
     @Override
@@ -400,6 +407,23 @@ public class CardsActivity extends Activity {
     public boolean isNetworkAvailable( final Context context) {
         final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    private void tutorial(){
+        misTarjetas = ParseUser.getCurrentUser().getList("tarjetas");
+        // las tarjetas son vacias mostar imagen del tutorial
+        ImageView img_tuto = (ImageView) findViewById(R.id.img_tutorial);
+        if(misTarjetas == null || misTarjetas.isEmpty()){
+            // set background dependiendo la version
+            if(Build.VERSION.SDK_INT >= 17){
+                img_tuto.setBackgroundResource(R.drawable.tutorial2);
+            }else{
+                img_tuto.setBackgroundResource(R.drawable.tutorial1);
+            }
+            img_tuto.setVisibility(View.VISIBLE);
+        }else{
+            img_tuto.setVisibility(View.INVISIBLE);
+        }
     }
 }
 

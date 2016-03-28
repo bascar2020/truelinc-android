@@ -100,11 +100,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ib_tuto"
-            android:background="@drawable/tutorial1" />
+            android:id="@+id/img_tutorial"
+            android:background="@drawable/tutorial1"
+            android:visibility="invisible" />
     </RelativeLayout>
 
 </RelativeLayout>
