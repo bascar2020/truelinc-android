@@ -37,4 +37,9 @@
     <string name="title_alert">Alerta</string>
     <string name="dialog_tittle">Cargando tus tarjetas</string>
     <string name="dialog_message">Buscando Tarjetas..</string>
+
+    <string name="drawer_opened"></string>
+    <string name="drawer_closed"></string>
+
+
 </resources>
