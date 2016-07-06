@@ -250,7 +250,7 @@ public class TarjetaActivity extends Activity {
                         }
                     }
                 }
-                startActivity(new Intent(TarjetaActivity.this, CardsActivity.class));
+                startActivity(new Intent(TarjetaActivity.this, HomeActivity.class));
             }
         });
 
@@ -269,7 +269,7 @@ public class TarjetaActivity extends Activity {
             user.put("tarjetas", misTarjetas);
             user.saveInBackground();
 
-            Intent intent = new Intent(TarjetaActivity.this, CardsActivity.class);
+            Intent intent = new Intent(TarjetaActivity.this, HomeActivity.class);
             startActivity(intent);
 
 

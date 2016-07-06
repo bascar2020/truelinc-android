@@ -1,21 +1,19 @@
 package co.com.indibyte.truelink;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -30,7 +28,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import co.com.indibyte.truelink.adapter.CardsAdapter;
@@ -40,7 +37,7 @@ import co.com.indibyte.truelink.model.Tarjetas;
  * Created by CharlieMolina on 21/10/15.
  */
 
-public class CardsActivity extends Activity {
+public class CardsActivity extends Fragment {
 
     private static final int INITIAL_DELAY_MILLIS = 300;
     private List<Tarjetas> tarjetasUser = null;
@@ -60,21 +57,27 @@ public class CardsActivity extends Activity {
 
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        return  inflater.inflate(R.layout.activity_cards, container, false);
+
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onStart() {
+        super.onStart();
 
         misTarjetas = ParseUser.getCurrentUser().getList("tarjetas");
 
-        setContentView(R.layout.activity_cards);
-        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
+        //setContentView(R.layout.activity_cards);
+        ReplaceFont.replaceDefaultFont(getActivity(), "DEFAULT", "Ubun.ttf");
         new RemoteDataTask().execute();
 
 
 
-        final EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
+        final EditText inputSearch = (EditText) getView().findViewById(R.id.inputSearch);
         inputSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -94,7 +97,7 @@ public class CardsActivity extends Activity {
             }
         });;
 
-        ImageView btnBorrar = (ImageView) findViewById(R.id.btn_borrar);
+        ImageView btnBorrar = (ImageView) getView().findViewById(R.id.btn_borrar);
         btnBorrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,12 +112,12 @@ public class CardsActivity extends Activity {
             }
         });*/
 
-    ListView listaTarjetas = (ListView) findViewById(R.id.activity_googlecards_listview);
+        ListView listaTarjetas = (ListView) getView().findViewById(R.id.activity_googlecards_listview);
         listaTarjetas.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 inputSearch.clearFocus();
-                InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 mgr.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
 
             }
@@ -130,8 +133,9 @@ public class CardsActivity extends Activity {
         // llamar funcion tutorial para comprobar si debe o no poner la imagen
         tutorial();
 
-
     }
+
+
 
 
     private class RemoteDataTask extends AsyncTask<Void,Void,Void>{
@@ -140,10 +144,10 @@ public class CardsActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
             // Create a progressdialog
-            mProgressDialog = new ProgressDialog(CardsActivity.this);
+            mProgressDialog = new ProgressDialog(getActivity());
             // Set progressdialog title
             mProgressDialog.setTitle("Cargando tus tarjetas");
             // Set progressdialog message
@@ -161,7 +165,7 @@ public class CardsActivity extends Activity {
 
             if (misTarjetas!=null) {
                 ParseQuery<Tarjetas> woodwinds = ParseQuery.getQuery(Tarjetas.class);
-                if(!isNetworkAvailable(CardsActivity.this)){woodwinds.fromLocalDatastore();}
+                if(!isNetworkAvailable(getActivity())){woodwinds.fromLocalDatastore();}
                 woodwinds.whereContainedIn("objectId", misTarjetas);
                 woodwinds.orderByAscending("Empresa");
                 woodwinds.findInBackground(new FindCallback<Tarjetas>() {
@@ -170,9 +174,9 @@ public class CardsActivity extends Activity {
                             Log.d("query", "request failed.");
                         } else {
                             Log.d("query", "Succes!.");
-                            ListView listView = (ListView) findViewById(R.id.activity_googlecards_listview);
+                            ListView listView = (ListView) getView().findViewById(R.id.activity_googlecards_listview);
                             tarjetasUser = tarjetas;
-                            mGoogleCardsAdapter = new CardsAdapter(CardsActivity.this, tarjetas);
+                            mGoogleCardsAdapter = new CardsAdapter(getActivity(), tarjetas);
                             SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mGoogleCardsAdapter);
                             swingBottomInAnimationAdapter.setAbsListView(listView);
 
@@ -211,52 +215,14 @@ public class CardsActivity extends Activity {
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-
-        // action with ID action_refresh was selected
-        switch (item.getItemId()) {
-            // action with ID action_refresh was selected
-            case R.id.action_camara:
-//                Toast.makeText(this, "Camara selected", Toast.LENGTH_SHORT) .show();
-                Intent it = new Intent(this, com.google.zxing.client.android.CaptureActivity.class);
-                startActivityForResult(it, 0);
-                break;
-            case R.id.btn_buscar:
-                startActivity(new Intent(getApplicationContext(), CardsActivityOnline.class));
-                break;
-            // action with ID action_settings was selected
-            case R.id.action_settings:
-                ParseUser.getCurrentUser().logOut();
-                startActivity(new Intent(CardsActivity.this, SignUpOrLoginActivity.class));
-                finish();
-                break;
-            default:
-                break;
-        }
-        return true;
-
-    }
-
+    /*
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode==0 && RESULT_OK==resultCode){
+        if (requestCode==0 && Activity.RESULT_OK==resultCode){
 
 
-            if (isNetworkAvailable(CardsActivity.this)) {
+            if (isNetworkAvailable(getActivity())) {
                 if (data.getStringExtra("SCAN_RESULT").substring(0, 8).equalsIgnoreCase("truelinc")) {
                     String[] scan_results = data.getStringExtra("SCAN_RESULT").split(":");
                     final String idTarjeta = scan_results[1];
@@ -267,7 +233,7 @@ public class CardsActivity extends Activity {
 
 
 
-                    mProgressDialog = new ProgressDialog(CardsActivity.this);
+                    mProgressDialog = new ProgressDialog(getActivity());
                     // Set progressdialog title
                     mProgressDialog.setTitle("Cargando tus tarjetas");
                     // Set progressdialog message
@@ -288,7 +254,7 @@ public class CardsActivity extends Activity {
                             if (e == null) {
 
                                 //volver invisible la imagen tutorial
-                                ImageView im = (ImageView) findViewById(R.id.img_tutorial);
+                                ImageView im = (ImageView) getView().findViewById(R.id.img_tutorial);
                                 im.setVisibility(View.INVISIBLE);
 
 
@@ -319,8 +285,8 @@ public class CardsActivity extends Activity {
                                         }
                                     }
 
-                                    ListView listView = (ListView) findViewById(R.id.activity_googlecards_listview);
-                                    mGoogleCardsAdapter = new CardsAdapter(CardsActivity.this,tarjetasUser);
+                                    ListView listView = (ListView) getView().findViewById(R.id.activity_googlecards_listview);
+                                    mGoogleCardsAdapter = new CardsAdapter(getActivity(),tarjetasUser);
                                     SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mGoogleCardsAdapter);
                                     swingBottomInAnimationAdapter.setAbsListView(listView);
 
@@ -334,9 +300,9 @@ public class CardsActivity extends Activity {
 
                                 } else
                                 {
-                                    AlertDialog alertDialog = new AlertDialog.Builder(CardsActivity.this).create();
+                                    AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                                     alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
-                                    alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBodyError2));
+                                    alertDialog.setMessage(getActivity().getApplicationContext().getText(R.string.msg_alert_cardActivityBodyError2));
                                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -347,9 +313,9 @@ public class CardsActivity extends Activity {
                                 }
 
                             } else {
-                                AlertDialog alertDialog = new AlertDialog.Builder(CardsActivity.this).create();
+                                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                                 alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
-                                alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBodyError1));
+                                alertDialog.setMessage(getActivity().getApplicationContext().getText(R.string.msg_alert_cardActivityBodyError1));
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
@@ -366,9 +332,9 @@ public class CardsActivity extends Activity {
                 } else
 
                 {
-                    AlertDialog alertDialog = new AlertDialog.Builder(CardsActivity.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
-                    alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBodyError1));
+                    alertDialog.setMessage(getActivity().getApplicationContext().getText(R.string.msg_alert_cardActivityBodyError1));
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -379,9 +345,9 @@ public class CardsActivity extends Activity {
                 }
             }
                     else{
-                AlertDialog alertDialog = new AlertDialog.Builder(CardsActivity.this).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                 alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
-                alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBody));
+                alertDialog.setMessage(getActivity().getApplicationContext().getText(R.string.msg_alert_cardActivityBody));
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -401,7 +367,7 @@ public class CardsActivity extends Activity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-    }
+    }*/
 
 
     public boolean isNetworkAvailable( final Context context) {
@@ -412,7 +378,7 @@ public class CardsActivity extends Activity {
     private void tutorial(){
         misTarjetas = ParseUser.getCurrentUser().getList("tarjetas");
         // las tarjetas son vacias mostar imagen del tutorial
-        ImageView img_tuto = (ImageView) findViewById(R.id.img_tutorial);
+        ImageView img_tuto = (ImageView) getView().findViewById(R.id.img_tutorial);
         if(misTarjetas == null || misTarjetas.isEmpty()){
             // set background dependiendo la version
             if(Build.VERSION.SDK_INT >= 17){

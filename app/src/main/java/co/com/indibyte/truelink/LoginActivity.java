@@ -80,7 +80,8 @@ public class LoginActivity extends Activity {
                         } else {
                             // Start an intent for the dispatch activity
                             getTarjetasUser();
-                            Intent intent = new Intent(LoginActivity.this, CardsActivity.class);
+                            //Intent intent = new Intent(LoginActivity.this, CardsActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }

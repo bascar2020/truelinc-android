@@ -19,42 +19,38 @@ public class SlidingMenuAdapter extends BaseAdapter {
 
     private Context context;
     private List<ItemSlideMenu> lstItem;
-    private int position;
 
-    public SlidingMenuAdapter(List<ItemSlideMenu> lstItem, Context context) {
+    public SlidingMenuAdapter(Context context, List<ItemSlideMenu> lstItem) {
         this.context = context;
         this.lstItem = lstItem;
-
     }
 
     @Override
     public int getCount() {
-
         return lstItem.size();
     }
 
     @Override
     public Object getItem(int position) {
-
         return lstItem.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-
         return position;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-        View v = View.inflate(context,  R.layout.item_sliding_menu, null);
-        ImageView img = (ImageView)v.findViewById(R.id.ic_lupa3);
+        View v = View.inflate(context, R.layout.item_sliding_menu, null);
+        ImageView img = (ImageView)v.findViewById(R.id.item_img);
         TextView tv = (TextView)v.findViewById(R.id.item_title);
 
         ItemSlideMenu item = lstItem.get(position);
         img.setImageResource(item.getImgId());
         tv.setText(item.getTitle());
+
         return v;
     }
 }

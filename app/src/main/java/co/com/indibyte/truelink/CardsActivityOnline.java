@@ -1,17 +1,18 @@
 package co.com.indibyte.truelink;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -36,23 +37,32 @@ import co.com.indibyte.truelink.model.Tarjetas;
 /**
  * Created by user on 19/11/15.
  */
-public class CardsActivityOnline extends Activity{
+public class CardsActivityOnline extends Fragment{
 
     private static final int INITIAL_DELAY_MILLIS = 300;
     private CardsAdapterBuscador mGoogleCardsAdapter;
     String busqueda = "";
     ProgressDialog mProgressDialog;
 
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.buscador);
-        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Ubun.ttf");
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        final EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        return  inflater.inflate(R.layout.buscador, container, false);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        ReplaceFont.replaceDefaultFont(getActivity(), "DEFAULT", "Ubun.ttf");
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        final EditText inputSearch = (EditText) getView().findViewById(R.id.inputSearch);
 
 
-        ImageView btnBorrar = (ImageView) findViewById(R.id.btn_borrar);
+        ImageView btnBorrar = (ImageView) getView().findViewById(R.id.btn_borrar);
         btnBorrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +76,7 @@ public class CardsActivityOnline extends Activity{
                 if (actionId== EditorInfo.IME_ACTION_SEARCH){
 
                     busqueda = inputSearch.getText().toString();
-                    InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     mgr.hideSoftInputFromWindow(inputSearch.getWindowToken(),0);
 
                     new CargarlistView().execute();
@@ -79,17 +89,7 @@ public class CardsActivityOnline extends Activity{
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home://hago un case por si en un futuro agrego mas opciones
-                Log.d("ActionBar", "Atrás!");
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
 
     private class CargarlistView extends AsyncTask<Void,Void,ArrayAdapter<Tarjetas>>{
 
@@ -104,21 +104,21 @@ public class CardsActivityOnline extends Activity{
         protected void onPreExecute() {
             super.onPreExecute();
 
-                if(isNetworkAvailable(CardsActivityOnline.this)){
+                if(isNetworkAvailable(getActivity())){
                     // Create a progressdialog
-                    mProgressDialog = new ProgressDialog(CardsActivityOnline.this);
+                    mProgressDialog = new ProgressDialog(getActivity());
                     // Set progressdialog title
                     mProgressDialog.setTitle(R.string.dialog_tittle);
                     // Set progressdialog message
-                    mProgressDialog.setMessage(getApplicationContext().getText(R.string.dialog_message));
+                    mProgressDialog.setMessage(getActivity().getApplicationContext().getText(R.string.dialog_message));
                     mProgressDialog.setIndeterminate(false);
                     mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     // Show progressdialog
                     mProgressDialog.show();
                 }else{
-                    AlertDialog alertDialog = new AlertDialog.Builder(CardsActivityOnline.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle(R.string.msg_alert_cardActivityTitle);
-                    alertDialog.setMessage(getApplicationContext().getText(R.string.msg_alert_cardActivityBody));
+                    alertDialog.setMessage(getActivity().getApplicationContext().getText(R.string.msg_alert_cardActivityBody));
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -181,8 +181,8 @@ public class CardsActivityOnline extends Activity{
                             vacia.setEmpresa("no datos");
                             tarjetas.add(vacia);
                         }
-                        ListView listView = (ListView) findViewById(R.id.activity_googlecards_listview);
-                        mGoogleCardsAdapter = new CardsAdapterBuscador(CardsActivityOnline.this, tarjetas);
+                        ListView listView = (ListView) getView().findViewById(R.id.activity_googlecards_listview);
+                        mGoogleCardsAdapter = new CardsAdapterBuscador(getActivity(), tarjetas);
                         SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mGoogleCardsAdapter);
                         swingBottomInAnimationAdapter.setAbsListView(listView);
 

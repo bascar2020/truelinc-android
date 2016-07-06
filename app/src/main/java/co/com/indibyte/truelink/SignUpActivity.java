@@ -82,7 +82,7 @@ public class SignUpActivity extends Activity{
                     if (e != null){
                         Toast.makeText(SignUpActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
                     }else{
-                        Intent intent = new Intent(SignUpActivity.this, CardsActivity.class) ;
+                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class) ;
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }

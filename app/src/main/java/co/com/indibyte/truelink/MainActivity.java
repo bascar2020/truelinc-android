@@ -21,7 +21,7 @@ public class MainActivity extends Activity{
 
         if (ParseUser.getCurrentUser() != null) {
             // Start an intent for the logged in activity
-            startActivity(new Intent(this, CardsActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
         } else {
             // Start and intent for the logged out activity
 

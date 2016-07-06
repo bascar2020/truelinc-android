@@ -28,20 +28,20 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".SignUpOrLoginActivity" android:screenOrientation="portrait"/>
         <activity android:name=".LoginActivity" android:screenOrientation="portrait"/>
         <activity android:name=".SignUpActivity" android:screenOrientation="portrait"/>
 
-        <activity
+        <fragment
             android:name=".CardsActivity"
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/ActionBAR"
             android:screenOrientation="portrait">
-        </activity>
+        </fragment>
         <activity
             android:name=".TarjetaActivity"
             android:screenOrientation="portrait">
@@ -54,10 +54,15 @@
             android:name=".PopUp"
             android:screenOrientation="portrait">
         </activity>
-        <activity
+        <fragment
             android:name=".CardsActivityOnline"
             android:theme="@style/ActionBAR"
             android:screenOrientation="portrait">
+        </fragment>
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActionBarSlideMenu">
         </activity>
 
         <activity
