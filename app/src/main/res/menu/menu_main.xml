@@ -4,7 +4,7 @@
     tools:context=".MainActivity"
     >
 
-
+<!--
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
@@ -18,7 +18,7 @@
         android:id="@+id/btn_buscar"
 
         android:title="Directorio Online"
-        />
+        />-->
     <!--<item-->
         <!--android:id="@+id/action_searh"-->
         <!--android:orderInCategory="2"-->

@@ -2,6 +2,7 @@ package co.com.indibyte.truelink;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -51,7 +52,7 @@ public class CardsActivity extends Fragment {
 
 
 
- private CardsAdapter mGoogleCardsAdapter;
+ public CardsAdapter mGoogleCardsAdapter;
 
     public CardsActivity() {
 
@@ -208,19 +209,19 @@ public class CardsActivity extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             //super.onPostExecute(aVoid);
-
-
-
-
         }
     }
 
-    /*
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode==0 && Activity.RESULT_OK==resultCode){
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        Log.d("DEBUG_RESULT", intent.getStringExtra("SCAN_RESULT"));
+    }
 
+    /*@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==0 && Activity.RESULT_OK==resultCode){
 
             if (isNetworkAvailable(getActivity())) {
                 if (data.getStringExtra("SCAN_RESULT").substring(0, 8).equalsIgnoreCase("truelinc")) {
@@ -230,7 +231,6 @@ public class CardsActivity extends Fragment {
                     //Log.d("query", idTarjeta);
                     final ParseQuery<Tarjetas> query = ParseQuery.getQuery(Tarjetas.class);
                     query.whereEqualTo("objectId", idTarjeta.trim());
-
 
 
                     mProgressDialog = new ProgressDialog(getActivity());
@@ -359,8 +359,8 @@ public class CardsActivity extends Fragment {
 
         }
 
-    }
-
+    }*/
+/*
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -381,8 +381,9 @@ public class CardsActivity extends Fragment {
         ImageView img_tuto = (ImageView) getView().findViewById(R.id.img_tutorial);
         if(misTarjetas == null || misTarjetas.isEmpty()){
             // set background dependiendo la version
+
             if(Build.VERSION.SDK_INT >= 17){
-                img_tuto.setBackgroundResource(R.drawable.tutorial2);
+                img_tuto.setBackgroundResource(R.drawable.tutorial1);
             }else{
                 img_tuto.setBackgroundResource(R.drawable.tutorial1);
             }
@@ -391,6 +392,8 @@ public class CardsActivity extends Fragment {
             img_tuto.setVisibility(View.INVISIBLE);
         }
     }
+
+
 }
 
 

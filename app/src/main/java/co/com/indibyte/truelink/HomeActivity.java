@@ -1,7 +1,10 @@
 package co.com.indibyte.truelink;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,12 +12,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -22,6 +29,7 @@ import java.util.List;
 
 import co.com.indibyte.truelink.adapter.SlidingMenuAdapter;
 import co.com.indibyte.truelink.model.ItemSlideMenu;
+import co.com.indibyte.truelink.model.Tarjetas;
 
 
 /**
@@ -49,7 +57,7 @@ public class HomeActivity  extends FragmentActivity{
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         listSliding = new ArrayList<>();
         //Add item for sliding list
-        listSliding.add(new ItemSlideMenu(R.mipmap.ic_action_home, "Mis Tarjetas"));
+        listSliding.add(new ItemSlideMenu(R.mipmap.ic_tarje, "Mis Tarjetas"));
         listSliding.add(new ItemSlideMenu(R.mipmap.ic_lupa3, "Buscador"));
         listSliding.add(new ItemSlideMenu(R.mipmap.ic_cam3, "Camara"));
         listSliding.add(new ItemSlideMenu(R.mipmap.ic_log3, "Log Out"));
@@ -79,8 +87,13 @@ public class HomeActivity  extends FragmentActivity{
         listViewSliding.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Set title
-                setTitle(listSliding.get(position).getTitle());
+
+                if (position == 2){
+                    setTitle("Mis Tarjetas");
+                }else {
+                    //Set title
+                    setTitle(listSliding.get(position).getTitle());
+                }
                 //item selected
                 listViewSliding.setItemChecked(position, true);
                 //Replace fragment
@@ -126,27 +139,69 @@ public class HomeActivity  extends FragmentActivity{
                     drawerLayout.openDrawer(listViewSliding);
                 }
                 break;
-            // action with ID action_refresh was selected
-            case R.id.action_camara:
-//                Toast.makeText(this, "Camara selected", Toast.LENGTH_SHORT) .show();
-                Intent it = new Intent(this, com.google.zxing.client.android.CaptureActivity.class);
-                startActivityForResult(it, 0);
-                break;
-            case R.id.btn_buscar:
-                startActivity(new Intent(getApplicationContext(), CardsActivityOnline.class));
-                break;
-            // action with ID action_settings was selected
-            case R.id.action_settings:
-                ParseUser.getCurrentUser().logOut();
-                startActivity(new Intent(this , SignUpOrLoginActivity.class));
-                finish();
-                break;
+
             default:
                 break;
         }
         return true;
 
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 0 && Activity.RESULT_OK == resultCode) {
+
+            if (isNetworkAvailable(HomeActivity.this)) {
+                if (data.getStringExtra("SCAN_RESULT").substring(0, 8).equalsIgnoreCase("truelinc")) {
+                    String[] scan_results = data.getStringExtra("SCAN_RESULT").split(":");
+                    final String idTarjeta = scan_results[1];
+
+                    //Log.d("query", idTarjeta);
+                    final ParseQuery<Tarjetas> query = ParseQuery.getQuery(Tarjetas.class);
+                    query.whereEqualTo("objectId", idTarjeta.trim());
+
+                    try {
+                        List<Tarjetas> respuesta = query.find();
+                        if(!respuesta.isEmpty()){
+                            ParseUser user = ParseUser.getCurrentUser();
+                            List<String> misTarjetas = user.getList("tarjetas");
+                            if (misTarjetas == null) {
+                                misTarjetas = new ArrayList<String>();
+                            }
+                            misTarjetas.add(idTarjeta.trim());
+                            try {
+                                user.put("tarjetas", misTarjetas);
+                                user.save();
+                            } catch (ParseException e1) {
+                                e1.printStackTrace();
+                            }
+
+                            Log.d("query", "DONE.");
+                        }else{
+
+                            // NO LO ENCONTRO
+                            Toast.makeText(getApplicationContext(), R.string.msg_alert_cardActivityBodyError2, Toast.LENGTH_SHORT).show();
+
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }else{
+                    Log.d("ERROR", "formato no valido");
+                    Toast.makeText(getApplicationContext(), R.string.msg_alert_cardActivityBodyError1, Toast.LENGTH_SHORT).show();
+                }
+            }else{Log.d("ERROR", "no internet");
+                    Toast.makeText(getApplicationContext(), R.string.msg_alert_cardActivityBody, Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -175,9 +230,10 @@ public class HomeActivity  extends FragmentActivity{
             case 3:
                 ParseUser.getCurrentUser().logOut();
                 finish();
+                onBackPressed();
                 break;
             default:
-               // fragment = new Fragment1();
+                //fragment = new CardsActivity();
                 break;
         }
 
@@ -188,5 +244,18 @@ public class HomeActivity  extends FragmentActivity{
             transaction.addToBackStack(null);
             transaction.commit();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public boolean isNetworkAvailable( final Context context) {
+        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

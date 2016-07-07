@@ -29,7 +29,7 @@
     <string name="msg_alert_cardActivityTitle">Tenemos un Problema!</string>
     <string name="msg_alert_cardActivityBody">Comprueba tu conexion y vuelve a intentarlo</string>
     <string name="msg_alert_cardActivityBodyError1">El codigo QR no es valido!</string>
-    <string name="msg_alert_cardActivityBodyError2">:( Trabajamos para mejorar esto! Disculpa :)</string>
+    <string name="msg_alert_cardActivityBodyError2">:( (error 500 servidor) Trabajamos para mejorar esto! Disculpa :)</string>
     <string name="errorconexion">Comprueba tu conexión y vuelve a intentarlo</string>
     <string name="confirmation">¿Desea eliminar la tarjeta?</string>
     <string name="yes">si</string>
