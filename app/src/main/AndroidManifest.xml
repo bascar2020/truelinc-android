@@ -40,7 +40,8 @@
             android:name=".CardsActivity"
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/ActionBAR"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            >
         </fragment>
         <activity
             android:name=".TarjetaActivity"
