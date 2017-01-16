@@ -128,8 +128,14 @@ public class CardsAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) view.getTag();
         }
         if (filteredData.get(position).getFoto()!=null){
-            holder.foto.setParseFile(filteredData.get(position).getFoto());
-            holder.foto.loadInBackground();
+            try {
+                byte[] bitmapdata = filteredData.get(position).getFoto().getData();
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+                holder.foto.setImageBitmap(bitmap);
+            }catch (ParseException e){
+                e.fillInStackTrace();
+            }
+
         }else{
             int imageResource = R.drawable.no_perfil;
             holder.foto.setImageResource(imageResource);

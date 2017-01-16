@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -54,7 +53,7 @@ public class TarjetaActivity extends Activity {
         TextView tweet = (TextView)findViewById(R.id.tv_twit);
         TextView ciudad = (TextView)findViewById(R.id.tv_ciudad);
         TextView cargo = (TextView)findViewById(R.id.tv_cargo);
-        ParseImageView foto = (ParseImageView) findViewById(R.id.iv_foto);
+        final ParseImageView foto = (ParseImageView) findViewById(R.id.iv_foto);
         ImageView logo = (ImageView) findViewById(R.id.iv_logo);
         ImageView qr = (ImageView) findViewById(R.id.iv_qr);
         ImageView btn_facebook = (ImageView) findViewById(R.id.btn_face);
@@ -63,10 +62,10 @@ public class TarjetaActivity extends Activity {
 
         final Bundle bundle = getIntent().getExtras();
         if (bundle.get("Foto")!=null){
-            ParseFile fotoPerfil = new ParseFile(bundle.getByteArray("Foto"));
-            if (fotoPerfil != null) {
-                foto.setParseFile(fotoPerfil);
-                foto.loadInBackground();
+            if (bundle.getByteArray("Foto") != null) {
+                byte[] bitmapdata = bundle.getByteArray("Foto");
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+                foto.setImageBitmap(bitmap);
             }
         }
 
