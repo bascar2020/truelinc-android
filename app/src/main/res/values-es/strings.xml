@@ -15,7 +15,46 @@
  limitations under the License.
  -->
 <resources>
-  <string name="app_picker_name">Aplicaciones</string>
+    <string name="app_name">TrueLinc</string>
+    <string name="parse_app_id">Qdo1FPUxp53RFkzPLC1WFR4u6KHXPCRIAClvK0V2</string>
+    <string name="parse_client_id">v4I1Zw47CJss81QSYugsunvUyNT7Pje1IekCJAzu</string>
+    <!--- Textos para Login  y SingUP -->
+    <string name="exito">Login con exito empieza a usar true link</string>
+    <string name="action_settings">Log Out</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_SignUp">Sign Up</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_password_again">Password Again</string>
+    <string name="action_sign_in_register"><b>Sign in</b> or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_intro">"Please "</string>
+    <string name="error_blank_username">enter a username</string>
+    <string name="error_blank_password">enter a password</string>
+    <string name="error_mismatched_passwords">enter the same password twice</string>
+    <string name="error_join">", and "</string>
+    <string name="error_end">.</string>
+
+
+    <string name="msg_alert_cardActivityTitle">Tenemos un Problema!</string>
+    <string name="msg_alert_cardActivityBody">Comprueba tu conexion y vuelve a intentarlo</string>
+    <string name="msg_alert_cardActivityBodyError1">El codigo QR no es valido!</string>
+    <string name="msg_alert_cardActivityBodyError2">:( (error 500 servidor) Trabajamos para mejorar esto! Disculpa :)</string>
+    <string name="errorconexion">Comprueba tu conexión y vuelve a intentarlo</string>
+    <string name="confirmation">¿Desea eliminar la tarjeta?</string>
+    <string name="yes">si</string>
+    <string name="no">no</string>
+    <string name="title_alert">Alerta</string>
+    <string name="dialog_tittle">Cargando tus tarjetas</string>
+    <string name="dialog_message">Buscando Tarjetas..</string>
+
+    <string name="drawer_opened"></string>
+    <string name="drawer_closed"></string>
+    <string name="app_picker_name">Aplicaciones</string>
   <string name="bookmark_picker_name">Marcadores</string>
   <string name="button_add_calendar">Añadir al calendario</string>
   <string name="button_add_contact">Añadir contacto</string>
