@@ -24,7 +24,7 @@ public class StartPARSE extends Application {
             Parse.initialize(new Parse.Configuration.Builder(this)
                     .applicationId(getString(R.string.parse_app_id))
                     .clientKey(getString(R.string.parse_client_id))
-                    .server("https://parseapi.back4app.com").enableLocalDataStore().build());
+                    .server("https://parseapi.back4app.com/").enableLocalDataStore().build());
             Parse.setLogLevel(Parse.LOG_LEVEL_VERBOSE);
 
 //            ParseUser.enableAutomaticUser();

@@ -15,12 +15,7 @@
         android:theme="@style/AppTheme"
         android:logo="@mipmap/ic_launcher"
         >
-        <meta-data
-            android:name="com.parse.APPLICATION_ID"
-            android:value="@string/parse_app_id" />
-        <meta-data
-            android:name="com.parse.CLIENT_KEY"
-            android:value="@string/parse_client_id" />
+
 
         <activity
             android:name=".MainActivity"
